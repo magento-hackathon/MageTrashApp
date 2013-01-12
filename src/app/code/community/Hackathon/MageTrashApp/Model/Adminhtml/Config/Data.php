@@ -88,6 +88,7 @@ class Hackathon_MageTrashApp_Model_Adminhtml_Config_Data extends Mage_Adminhtml_
                 /**
                  * Get field backend model
                  */
+                // HACKATHON START
                 if ($fieldConfig) {
                     $backendClass = $fieldConfig->backend_model;
                     if (!$backendClass) {
@@ -96,6 +97,8 @@ class Hackathon_MageTrashApp_Model_Adminhtml_Config_Data extends Mage_Adminhtml_
                 } else {
                     $backendClass = 'core/config_data';
                 }
+                // HACKATHON END
+
 
                 /** @var $dataObject Mage_Core_Model_Config_Data */
                 $dataObject = Mage::getModel($backendClass);
