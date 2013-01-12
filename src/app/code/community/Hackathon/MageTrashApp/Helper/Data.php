@@ -3,9 +3,20 @@ class Hackthon_MageTrashApp_Helper_Data extends Mage_Core_Helper_Abstract
 {
 	public function uninstallModule($moduleName)
 	{
-		// Check the dependencies first and allow the rest of the process otherwise block it
-		// @todo check modules they have dependencies with this module
+		$configModule = Mage::getConfig()->getModuleConfig($moduleName);
+		if ($configModule->is('active', true)) {
+			Mage::throwException($this->__('The module %s must be disabled before to uninstall.', $moduleName));
+			return;
+		}
 		
+		// Check the dependencies first and allow the rest of the process otherwise block it
+		$dependencies = $this->chechDependencies($moduleName);
+		if (count($dependencies) > 0) {
+			Mage::throwException(
+				$this->__('The module %s has dependencies with the module(s) %s. Please fix that before to remove this module.', $moduleName, implode(',',	$dependencies))
+			);
+			return;
+		}
 		
 		// We need to trigger SQL uninstall scripts
 		Mage::dispatchEvent('magetrashapp_before_sql_uninstall');
@@ -28,8 +39,15 @@ class Hackthon_MageTrashApp_Helper_Data extends Mage_Core_Helper_Abstract
 	protected function _processUninstallPackage($moduleName)
 	{
 		// Remove the code from different codePool
+		$config = Mage::getConfig();
+		$configModule = $config->getModuleConfig($moduleName);
 		
+		if ($configModule->is('active', true)) {
+			Mage::throwException($this->__('The module %s must be disabled before to uninstall.', $moduleName));
+			return;
+		}
 		
+		Mage::getConfig()->getBaseDir('app_dir');
 		
 // 		$package = $cacheObj->getPackageObject($chanName, $package);
 // 		$contents = $package->getContents();
@@ -48,5 +66,28 @@ class Hackthon_MageTrashApp_Helper_Data extends Mage_Core_Helper_Abstract
 // 		$destDir = $targetPath . DS . Mage_Connect_Package::PACKAGE_XML_DIR;
 // 		$destFile = $package->getReleaseFilename() . '.xml';
 // 		@unlink($destDir . DS . $destFile);
+	}
+	
+	/**
+	 * 
+	 * @param string $moduleName
+	 * @return boolean | array
+	 */
+	protected function checkDependencies ($moduleName)
+	{
+		$moduleDepends = array();
+		$modules = (array)Mage::getConfig()->getNode('modules')->children();
+		foreach ($modules as $parentName => $module) {
+			if ($module->depends) {
+				$depends = (array) $module->depends;
+				foreach ($depends as $name => $depend) {
+					if ($name == $moduleName) {
+						$moduleDepends[] = $parentName;
+					}
+				}
+			}
+		}
+		
+		return $moduleDepends;
 	}
 }
