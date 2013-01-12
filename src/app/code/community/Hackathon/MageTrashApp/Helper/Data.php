@@ -1,5 +1,5 @@
 <?php
-class Hackthon_MageTrashApp_Helper_Data extends Mage_Core_Helper_Abstract
+class Hackathon_MageTrashApp_Helper_Data extends Mage_Core_Helper_Abstract
 {
 
     const ENABLE = 0;
@@ -102,7 +102,7 @@ class Hackthon_MageTrashApp_Helper_Data extends Mage_Core_Helper_Abstract
      * @param  string $name
      * @return string
      */
-    public function deactivateModule($name)
+    public function activateModule($name,$activateFlag = true)
     {
         $isDeactivationPossible = true;
         foreach (Mage::getConfig()->getNode('modules')->children() as $moduleName => $item) {
@@ -127,23 +127,16 @@ class Hackthon_MageTrashApp_Helper_Data extends Mage_Core_Helper_Abstract
             if (file_exists($xmlPath)) {
                 $xmlObj = new Varien_Simplexml_Config($xmlPath);
 
-                $currentValue = (string) $xmlObj->getNode('modules/'.$name.'/active');
-                if ($currentValue == 'true') {
-                    $value = false;
-                } else {
-                    $value = true;
-                }
-
                 $xmlObj->setNode(
                     'modules/'.$name.'/active',
-                    $value ? 'true' : 'false'
+                    $activateFlag ? 'true' : 'false'
                 );
 
                 if (is_writable($xmlPath)) {
                     $xmlData = $xmlObj->getNode()->asNiceXml();
                     @file_put_contents($xmlPath, $xmlData);
                     Mage::app()->getCacheInstance()->clean();
-                    if ($value) {
+                    if ($activateFlag) {
                         $status = $this->__('The module "%s" has been successfully activated.', $name);
                     } else {
                         $status = $this->__('The module "%s" has been successfully deactivated.', $name);
