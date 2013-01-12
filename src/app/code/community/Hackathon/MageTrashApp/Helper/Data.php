@@ -19,7 +19,7 @@ class Hackathon_MageTrashApp_Helper_Data extends Mage_Core_Helper_Abstract
 			);
 			return;
 		}
-		
+
 		/* @var $uninstallModel Hackathon_MageTrashApp_Model_Uninstall */
 		$uninstallModel = Mage::getModel('magetrashapp/uninstall');
 		

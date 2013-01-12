@@ -31,9 +31,12 @@ class Hackathon_MageTrashApp_Model_Uninstall extends Mage_Core_Model_Abstract
         Mage::log("facebook foo");
         $command = 'uninstall';
         $params[] = 'community';
-        $params[] = 'Name_Space';
+        $params[] = $moduleName;
+        Mage_Connect_Command_Install::registerCommands();
+        $pear = new Mage_Connect_Command_Install();
+        //$result = $pear->doUninstall($command,array(),$params);
 
-
+        $bla = 'dfdf';
 
     }
 
