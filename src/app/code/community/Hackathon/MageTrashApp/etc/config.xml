@@ -12,4 +12,14 @@
             <version>1.0.0</version>
         </Hackathon_MageTrashApp>
     </modules>
+    <global>
+        <blocks>
+            <magetrashapp>
+                <class>Hackathon_MageTrashApp_Block</class>
+            </magetrashapp>
+            <magetrashapp_adminhtml>
+                <class>Hackathon_MageTrashApp_Adminhtml_Block</class>
+            </magetrashapp_adminhtml>
+        </blocks>
+   </global>
 </config>
