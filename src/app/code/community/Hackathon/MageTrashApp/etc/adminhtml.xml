@@ -8,9 +8,9 @@
                         <children>
                             <config>
                                 <children>
-                                    <MageTrashApp translate="title" module="trashapp">
+                                    <magetrashapp translate="title" module="trashapp">
                                         <title>Mage Trash App</title>
-                                    </MageTrashApp>
+                                    </magetrashapp>
                                 </children>
                             </config>
                         </children>

@@ -71,7 +71,7 @@ class Hackathon_MageTrashApp_Adminhtml_Block_System_Config_Form_Fieldset_Modules
     protected function _getFieldHtml($fieldset, $moduleName)
     {
         $configData = $this->getConfigData();
-        $path = 'magetrashapp/modules_magetrashapp/'.$moduleName; //TODO: move as property of form
+        $path = 'magetrashapp/manage_extns/'.$moduleName; //TODO: move as property of form
         if (isset($configData[$path])) {
             $data = $configData[$path];
             $inherit = false;
@@ -84,7 +84,7 @@ class Hackathon_MageTrashApp_Adminhtml_Block_System_Config_Form_Fieldset_Modules
 
         $field = $fieldset->addField($moduleName, 'select',
             array(
-                'name'          => 'groups[modules_magetrashapp][fields]['.$moduleName.'][value]',
+                'name'          => 'groups[manage_extns][fields]['.$moduleName.'][value]',
                 'label'         => $moduleName,
                 'value'         => $data,
                 'values'        => $this->_getValues(),
