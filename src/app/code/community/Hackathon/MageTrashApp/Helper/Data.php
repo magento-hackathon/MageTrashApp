@@ -48,7 +48,7 @@ class Hackathon_MageTrashApp_Helper_Data extends Mage_Core_Helper_Abstract
 			if ($module->depends) {
 				$depends = (array) $module->depends;
 				foreach ($depends as $name => $depend) {
-					if ($name == $moduleName) {
+					if ($name === $moduleName) {
 						$moduleDepends[] = $parentName;
 					}
 				}
