@@ -28,6 +28,10 @@ class Hackathon_MageTrashApp_Model_Uninstall extends Mage_Core_Model_Abstract
      * @param $moduleName
      */
     protected function processPearUninstall($moduleName) {
+        Mage::log("facebook foo");
+        $command = 'uninstall';
+        $params[] = 'community';
+        $params[] = 'Name_Space';
 
 
 

@@ -18,7 +18,7 @@ class Hackathon_MageTrashApp_Model_Observer extends Mage_Core_Model_Abstract {
                 continue;
             }
 
-            $configFlag = Mage::getStoreConfigFlag('magetrashapp/manage_extns/' . $moduleName);
+                $configFlag = Mage::getStoreConfig('magetrashapp/manage_extns/' . $moduleName);
 
 
             switch ($configFlag) {
