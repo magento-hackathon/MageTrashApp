@@ -3,6 +3,6 @@
     <modules>
         <Hackathon_MageTrashApp>
             <version>1.0.0</version>
-        </Hackathon_Socialcommerce>
+        </Hackathon_MageTrashApp>
     </modules>
 </config>
