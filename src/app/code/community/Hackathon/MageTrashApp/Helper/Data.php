@@ -1,6 +1,11 @@
 <?php
 class Hackthon_MageTrashApp_Helper_Data extends Mage_Core_Helper_Abstract
 {
+
+    const ENABLE = 0;
+    const DISABLE = 1;
+    const UNINSTALL = 2;
+
 	public function uninstallModule($moduleName)
 	{
 		$configModule = Mage::getConfig()->getModuleConfig($moduleName);
