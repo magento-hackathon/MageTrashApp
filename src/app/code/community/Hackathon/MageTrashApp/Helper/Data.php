@@ -21,7 +21,7 @@ class Hackathon_MageTrashApp_Helper_Data extends Mage_Core_Helper_Abstract
 		}
 		
 		/* @var $uninstallModel Hackathon_MageTrashApp_Model_Uninstall */
-		$uninstallModel = Mage::getModel('magetrashapp');
+		$uninstallModel = Mage::getModel('magetrashapp/uninstall');
 		
 		// We need to trigger SQL uninstall scripts
 		Mage::dispatchEvent('magetrashapp_before_sql_uninstall');
