@@ -8,14 +8,11 @@ class Hackathon_MageTrashApp_Helper_Data extends Mage_Core_Helper_Abstract
 
 	public function uninstallModule($moduleName)
 	{
-		$configModule = Mage::getConfig()->getModuleConfig($moduleName);
-		if ($configModule->is('active', true)) {
-			Mage::throwException($this->__('The module %s must be disabled before to uninstall.', $moduleName));
-			return;
-		}
+        // deactivate the module
+        $this->activateModule($moduleName,false);
 		
 		// Check the dependencies first and allow the rest of the process otherwise block it
-		$dependencies = $this->chechDependencies($moduleName);
+		$dependencies = $this->checkDependencies($moduleName);
 		if (count($dependencies) > 0) {
 			Mage::throwException(
 				$this->__('The module %s has dependencies with the module(s) %s. Please fix that before to remove this module.', $moduleName, implode(',',	$dependencies))
