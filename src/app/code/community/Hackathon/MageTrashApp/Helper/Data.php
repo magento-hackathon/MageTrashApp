@@ -90,4 +90,73 @@ class Hackthon_MageTrashApp_Helper_Data extends Mage_Core_Helper_Abstract
 		
 		return $moduleDepends;
 	}
+
+    /**
+     * Activate/Deactivate a Magento module
+     *
+     * @param  string $name
+     * @return string
+     */
+    public function deactivateModule($name)
+    {
+        $isDeactivationPossible = true;
+        foreach (Mage::getConfig()->getNode('modules')->children() as $moduleName => $item) {
+            if ($moduleName == $name) {
+                continue;
+            }
+            if ($item->depends) {
+                $depends = array();
+                foreach ($item->depends->children() as $depend) {
+                    if ($depend->getName() == $name) {
+                        if ((string) Mage::getConfig()->getModuleConfig($moduleName)->is('active', 'true')) {
+                            $isDeactivationPossible = false;
+                        }
+                    }
+                }
+            }
+        }
+
+        if ($isDeactivationPossible) {
+            $status = '';
+            $xmlPath = Mage::getBaseDir() . DS . 'app' . DS . 'etc' . DS . 'modules' . DS . $name .'.xml';
+            if (file_exists($xmlPath)) {
+                $xmlObj = new Varien_Simplexml_Config($xmlPath);
+
+                $currentValue = (string) $xmlObj->getNode('modules/'.$name.'/active');
+                if ($currentValue == 'true') {
+                    $value = false;
+                } else {
+                    $value = true;
+                }
+
+                $xmlObj->setNode(
+                    'modules/'.$name.'/active',
+                    $value ? 'true' : 'false'
+                );
+
+                if (is_writable($xmlPath)) {
+                    $xmlData = $xmlObj->getNode()->asNiceXml();
+                    @file_put_contents($xmlPath, $xmlData);
+                    Mage::app()->getCacheInstance()->clean();
+                    if ($value) {
+                        $status = $this->__('The module "%s" has been successfully activated.', $name);
+                    } else {
+                        $status = $this->__('The module "%s" has been successfully deactivated.', $name);
+                    }
+                } else {
+                    $status = $this->__('File %s is not writable.', $xmlPath);
+                }
+            } else {
+                $status = $this->__(
+                    'Module %s is probably not installed. File %s does not exist.',
+                    $name,
+                    $xmlPath
+                );
+            }
+        } else {
+            $status = $this->__('Module can\'t be deactivated because it is a dependency of another module which is still active.');
+        }
+
+        return $status;
+    }
 }
