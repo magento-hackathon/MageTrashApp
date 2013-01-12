@@ -13,7 +13,7 @@
             <version>1.0.0</version>
         </Hackathon_MageTrashApp>
     </modules>
-    
+
     <global>
         <blocks>
             <magetrashapp>
@@ -33,7 +33,24 @@
             <magetrashapp>
                 <class>Hackathon_MageTrashApp_Model</class>
             </magetrashapp>
+            <adminhtml>
+                <rewrite>
+                    <config_data>Hackathon_MageTrashApp_Model_Adminhtml_Config_Data</config_data>
+                </rewrite>
+            </adminhtml>
         </models>
+
+        <events>
+            <admin_system_config_changed_section_magetrashapp>
+                <observers>
+                    <hackathon_magetrashapp>
+                        <class>Hackathon_MageTrashApp_Model_Observer</class>
+                        <method>test</method>
+                    </hackathon_magetrashapp>
+                </observers>
+            </admin_system_config_changed_section_magetrashapp>
+        </events>
+
     </global>
 
     <admin>
