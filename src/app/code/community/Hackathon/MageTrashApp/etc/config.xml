@@ -45,7 +45,7 @@
                 <observers>
                     <hackathon_magetrashapp>
                         <class>Hackathon_MageTrashApp_Model_Observer</class>
-                        <method>test</method>
+                        <method>saveConfig</method>
                     </hackathon_magetrashapp>
                 </observers>
             </admin_system_config_changed_section_magetrashapp>
