@@ -10,6 +10,8 @@ class Hackathon_MageTrashApp_Model_Uninstall extends Mage_Core_Model_Abstract
      */
     public function uninstallSqlCommand ($moduleName)
     {
+        Mage::getSingleton('adminhtml/session')->addSuccess('Running SQL Unininstall for Module:'.$moduleName);
+
         $result = false;
 
         $resources = Mage::getConfig()->getNode('global/resources')->children();
@@ -37,6 +39,8 @@ class Hackathon_MageTrashApp_Model_Uninstall extends Mage_Core_Model_Abstract
             $resource = new Hackathon_MageTrashApp_Model_Resource_Setup($resourceName);
             $result = $resource->runUninstallSql($fileName,$resourceName);
 
+        } else {
+            Mage::getSingleton('adminhtml/session')->addNotice('Unable to find uninstall script for:'. $moduleName);
         }
 
         return $result;
