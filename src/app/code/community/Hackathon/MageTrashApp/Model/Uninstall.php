@@ -2,11 +2,77 @@
 
 class Hackathon_MageTrashApp_Model_Uninstall extends Mage_Core_Model_Abstract
 {
-	public function uninstallSqlCommand ($moduleName)
-	{
-		// Get the file uninstall.php of the sql/xyz_setup/ folder
-	
-	}
+    /**
+     * Run the uninstall sql script to remove everything from module in database
+     * This uninstall script must be provided by the extension provider
+     *
+     * @param $moduleName
+     */
+    public function uninstallSqlCommand ($moduleName)
+    {
+        $result = false;
+
+        $resources = Mage::getConfig()->getNode('global/resources')->children();
+        foreach ($resources as $resName => $resource) {
+            if (!$resource->setup) {
+                continue;
+            }
+
+            if (isset($resource->setup->module)) {
+                $testModName = (string)$resource->setup->module;
+                if ($testModName==$moduleName) {
+                    $resourceName = $resName;
+                }
+            }
+        }
+
+        if (empty($resourceName)) {
+            return $result;
+        }
+
+        $fileName = $this->_getUninstallSQLFile($moduleName,$resourceName);
+
+        if (!is_null($fileName) ) {
+
+            $resource = new Hackathon_MageTrashApp_Model_Resource_Setup($resourceName);
+            $result = $resource->runUninstallSql($fileName,$resourceName);
+
+        }
+
+        return $result;
+
+    }
+
+    /**
+     * Gets the Uninstall file contents if present
+     *
+     * Lifted and modified from Mage_Core_Resource_Setup::_getAvailableDbFiles()
+     *
+     * @return bool
+     */
+    protected function _getUninstallSQLFile($moduleName,$resourceName) {
+
+
+        $filesDir   = Mage::getModuleDir('sql', $moduleName) . DS . $resourceName;
+        if (!is_dir($filesDir) || !is_readable($filesDir)) {
+            return null;
+        }
+
+        $uninstallFile    = null;
+        $regExpDb   = sprintf('#^.*%s\.(php|sql)$#i', 'uninstall');
+        $handlerDir = dir($filesDir);
+        while (false !== ($file = $handlerDir->read())) {
+            $matches = array();
+            if (preg_match($regExpDb, $file, $matches)) {
+                $uninstallFile = $filesDir . DS . $file;
+                break;
+            }
+        }
+        $handlerDir->close();
+
+        return $uninstallFile;
+    }
+
 
     /**
      *  Options for uninstall are:

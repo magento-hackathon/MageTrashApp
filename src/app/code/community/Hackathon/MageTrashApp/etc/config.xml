@@ -32,14 +32,27 @@
         <models>
             <magetrashapp>
                 <class>Hackathon_MageTrashApp_Model</class>
+                <resourceModel>magetrashapp_resource</resourceModel>
             </magetrashapp>
+            <magetrashapp_resource>
+                <class>Hackathon_MageTrashApp_Model_Resource</class>
+            </magetrashapp_resource>
             <adminhtml>
                 <rewrite>
                     <config_data>Hackathon_MageTrashApp_Model_Adminhtml_Config_Data</config_data>
                 </rewrite>
             </adminhtml>
         </models>
-
+        <resources>
+            <magetrashapp_resource>
+                <setup>
+                    <module>Hackathon_MageTrashApp</module>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </magetrashapp_resource>
+        </resources>
         <events>
             <admin_system_config_changed_section_magetrashapp>
                 <observers>
