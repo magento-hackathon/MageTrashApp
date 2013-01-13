@@ -70,6 +70,10 @@ class Hackathon_MageTrashApp_Adminhtml_Block_System_Config_Form_Fieldset_Modules
 
     protected function _getFieldHtml($fieldset, $moduleName)
     {
+
+        //TODO Add synchronisation with the backend for these values, so reads from config
+
+
         $configData = $this->getConfigData();
         $path = 'magetrashapp/manage_extns/'.$moduleName; //TODO: move as property of form
         if (isset($configData[$path])) {
