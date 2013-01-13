@@ -98,9 +98,28 @@ class Hackathon_MageTrashApp_Model_Uninstall extends Mage_Core_Model_Abstract
         $command = 'uninstall';
         $params[] = 'community';
         $params[] = $moduleName;
-        Mage_Connect_Command_Install::registerCommands();
+        Mage_Connect_Command_Install::registerCommands(); // needed for init
         $pear = new Mage_Connect_Command_Install();
-        //$result = $pear->doUninstall($command,array(),$params);
+
+        // we need a config obj
+
+        /* @var $config Hackathon_MageTrashApp_Model_PearWrapper */
+        $config = Mage::getModel('magetrashapp/pearWrapper');
+        $bla = $config->getConfig();
+
+        /*$config = new Mage_Connect_Config();
+        $ftp=$config->__get('remote_config');
+        if(!empty($ftp)){
+            $packager = new Mage_Connect_Packager();
+            list($cache, $config, $ftpObj) = $packager->getRemoteConf($ftp);
+            $config;
+        }
+        $config->magento_root = dirname(dirname(__FILE__)).DS.'..';DS.'..';
+*/
+
+        $pear->setConfigObject($bla);
+
+        $result = $pear->doUninstall($command,array(),$params);
 
         $bla = 'dfdf';
 
