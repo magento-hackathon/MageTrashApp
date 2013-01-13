@@ -26,11 +26,13 @@ class Hackathon_MageTrashApp_Adminhtml_Block_System_Config_Form_Fieldset_Modules
         sort($modules);
 
         foreach ($modules as $moduleName) {
+            $moduleStatus = Mage::getConfig()->getModuleConfig($moduleName)->is('active', 'true');
+
             if ($moduleName==='Mage_Adminhtml'  ||$moduleName==='Hackathon_MageTrashApp'
                 || stripos($moduleName,'Mage_') !== false) {
                 continue;
             }
-            $html.= $this->_getFieldHtml($element, $moduleName);
+            $html.= $this->_getFieldHtml($element, $moduleName,$moduleStatus);
         }
         $html .= $this->_getFooterHtml($element);
 
@@ -59,8 +61,8 @@ class Hackathon_MageTrashApp_Adminhtml_Block_System_Config_Form_Fieldset_Modules
     {
         if (empty($this->_values)) {
             $this->_values = array(
-                array('label'=>Mage::helper('adminhtml')->__('Enable'),     'value'=>0),
-                array('label'=>Mage::helper('adminhtml')->__('Disable'),    'value'=>1),
+                array('label'=>Mage::helper('adminhtml')->__('Disabled'),    'value'=>0),
+                array('label'=>Mage::helper('adminhtml')->__('Enabled'),     'value'=>1),
                 array('label'=>Mage::helper('adminhtml')->__('Uninstall'),  'value'=>2),
             );
         }
@@ -68,21 +70,8 @@ class Hackathon_MageTrashApp_Adminhtml_Block_System_Config_Form_Fieldset_Modules
     }
 
 
-    protected function _getFieldHtml($fieldset, $moduleName)
+    protected function _getFieldHtml($fieldset, $moduleName,$moduleStatus)
     {
-
-        //TODO Add synchronisation with the backend for these values, so reads from config
-
-
-        $configData = $this->getConfigData();
-        $path = 'magetrashapp/manage_extns/'.$moduleName; //TODO: move as property of form
-        if (isset($configData[$path])) {
-            $data = $configData[$path];
-            $inherit = false;
-        } else {
-            $data = (int)(string)$this->getForm()->getConfigRoot()->descend($path);
-            $inherit = true;
-        }
 
         $e = $this->_getDummyElement();
 
@@ -90,9 +79,9 @@ class Hackathon_MageTrashApp_Adminhtml_Block_System_Config_Form_Fieldset_Modules
             array(
                 'name'          => 'groups[manage_extns][fields]['.$moduleName.'][value]',
                 'label'         => $moduleName,
-                'value'         => $data,
+                'value'         => (int)$moduleStatus,
                 'values'        => $this->_getValues(),
-                'inherit'       => $inherit,
+                'inherit'       => true,
                 'can_use_default_value' => $this->getForm()->canUseDefaultValue($e),
                 'can_use_website_value' => $this->getForm()->canUseWebsiteValue($e),
             ))->setRenderer($this->_getFieldRenderer());

@@ -2,8 +2,8 @@
 class Hackathon_MageTrashApp_Helper_Data extends Mage_Core_Helper_Abstract
 {
 
-    const ENABLE = 0;
-    const DISABLE = 1;
+    const DISABLE = 0;
+    const ENABLE = 1;
     const UNINSTALL = 2;
 
 	public function uninstallModule($moduleName)
@@ -32,8 +32,10 @@ class Hackathon_MageTrashApp_Helper_Data extends Mage_Core_Helper_Abstract
 		Mage::dispatchEvent('magetrashapp_before_package_uninstall');
 		$uninstallModel->processUninstallPackage($moduleName);
 		Mage::dispatchEvent('magetrashapp_after_package_uninstall');
-		
-	}
+        Mage::getSingleton('adminhtml/session')->addSuccess($moduleName.' has been uninstalled.');
+
+
+    }
 	
 	/**
 	 * 

@@ -87,9 +87,9 @@ class Hackathon_MageTrashApp_Model_Uninstall extends Mage_Core_Model_Abstract
      */
     public function processUninstallPackage($moduleName)
     {
-        if (!$this->processPearUninstall($moduleName)) {
+       // if (!$this->processPearUninstall($moduleName)) {
             $this->processFileBasedUninstall($moduleName);
-        }
+       // }
 	}
 
     /**
