@@ -97,7 +97,7 @@ class Hackathon_MageTrashApp_Helper_Data extends Mage_Core_Helper_Abstract
                 if (is_writable($xmlPath)) {
                     $xmlData = $xmlObj->getNode()->asNiceXml();
                     @file_put_contents($xmlPath, $xmlData);
-                    Mage::app()->getCacheInstance()->clean();
+                    Mage::app()->getStore()->resetConfig();
                     if ($activateFlag) {
                         $status = $this->__('The module "%s" has been successfully activated.', $name);
                     } else {
@@ -118,5 +118,19 @@ class Hackathon_MageTrashApp_Helper_Data extends Mage_Core_Helper_Abstract
         }
 
         return $status;
+    }
+    
+    public function rrmdir($dir)
+    {
+        if (is_dir($dir)) {
+            $objects = scandir($dir);
+            foreach ($objects as $object) {
+                if ($object != "." && $object != "..") {
+                    if (filetype($dir."/".$object) == "dir") $this->rrmdir($dir."/".$object); else unlink($dir."/".$object);
+                }
+            }
+            reset($objects);
+            rmdir($dir);
+        }
     }
 }
