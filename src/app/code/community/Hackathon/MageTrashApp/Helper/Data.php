@@ -1,7 +1,6 @@
 <?php
 class Hackathon_MageTrashApp_Helper_Data extends Mage_Core_Helper_Abstract
 {
-
     const DISABLE = 0;
     const ENABLE = 1;
     const UNINSTALL = 2;
@@ -34,7 +33,8 @@ class Hackathon_MageTrashApp_Helper_Data extends Mage_Core_Helper_Abstract
 		Mage::dispatchEvent('magetrashapp_after_package_uninstall');
         Mage::getSingleton('adminhtml/session')->addSuccess($moduleName.' has been uninstalled.');
 
-
+        // Do the cleanup of the config here because we need the old config until this point
+        Mage::app()->getStore()->resetConfig();
     }
 	
 	/**
@@ -45,12 +45,14 @@ class Hackathon_MageTrashApp_Helper_Data extends Mage_Core_Helper_Abstract
 	protected function checkDependencies ($moduleName)
 	{
 		$moduleDepends = array();
-		$modules = (array)Mage::getConfig()->getNode('modules')->children();
-		foreach ($modules as $parentName => $module) {
+		foreach (Mage::getConfig()->getNode('modules')->children() as $parentName => $module) {
+		    if ($parentName == $moduleName) {
+		        continue;
+		    }
+		    
 			if ($module->depends) {
-				$depends = (array) $module->depends;
-				foreach ($depends as $name => $depend) {
-					if ($name === $moduleName) {
+				foreach ($module->depends->children() as $name => $depend) {
+					if ($name === $moduleName && (bool) Mage::getConfig()->getModuleConfig($moduleName)->is('active', 'true')) {
 						$moduleDepends[] = $parentName;
 					}
 				}
@@ -69,21 +71,10 @@ class Hackathon_MageTrashApp_Helper_Data extends Mage_Core_Helper_Abstract
     public function activateModule($name,$activateFlag = true)
     {
         $isDeactivationPossible = true;
-        foreach (Mage::getConfig()->getNode('modules')->children() as $moduleName => $item) {
-            if ($moduleName == $name) {
-                continue;
-            }
-            if ($item->depends) {
-                $depends = array();
-                foreach ($item->depends->children() as $depend) {
-                    if ($depend->getName() == $name) {
-                        if ((string) Mage::getConfig()->getModuleConfig($moduleName)->is('active', 'true')) {
-                            $isDeactivationPossible = false;
-                        }
-                    }
-                }
-            }
+        if (count($this->checkDependencies($name)) > 0) {
+            $isDeactivationPossible = false;
         }
+
 
         if ($isDeactivationPossible) {
             $status = '';
@@ -99,7 +90,6 @@ class Hackathon_MageTrashApp_Helper_Data extends Mage_Core_Helper_Abstract
                 if (is_writable($xmlPath)) {
                     $xmlData = $xmlObj->getNode()->asNiceXml();
                     @file_put_contents($xmlPath, $xmlData);
-                    Mage::app()->getStore()->resetConfig();
                     if ($activateFlag) {
                         $status = $this->__('The module "%s" has been successfully activated.', $name);
                     } else {

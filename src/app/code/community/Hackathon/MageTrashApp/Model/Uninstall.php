@@ -147,10 +147,10 @@ class Hackathon_MageTrashApp_Model_Uninstall extends Mage_Core_Model_Abstract
         /* @var $helper Hackathon_MageTrashApp_Helper_Data */
         $helper = Mage::helper('magetrashapp');
         
-        if ($configModule->is('active', true)) {
-        	Mage::throwException( $helper->__('The module %s must be disabled before to uninstall.', $moduleName));
-        	return;
-        }
+//         if ($configModule->is('active', true)) {
+//         	Mage::throwException( $helper->__('The module %s must be disabled before to uninstall.', $moduleName));
+//         	return;
+//         }
         
         $etc = $config->getModuleDir('etc', $moduleName) . DS . 'config.xml';
         $configFile->loadFile($etc);

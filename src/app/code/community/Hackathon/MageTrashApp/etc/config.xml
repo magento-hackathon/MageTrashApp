@@ -20,7 +20,7 @@
                 <class>Hackathon_MageTrashApp_Block</class>
             </magetrashapp>
             <magetrashapp_adminhtml>
-                <class>Hackathon_MageTrashApp_Adminhtml_Block</class>
+                <class>Hackathon_MageTrashApp_Block_Adminhtml</class>
             </magetrashapp_adminhtml>
         </blocks>
         <helpers>
