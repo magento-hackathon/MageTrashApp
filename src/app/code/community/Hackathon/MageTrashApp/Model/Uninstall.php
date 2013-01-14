@@ -10,7 +10,7 @@ class Hackathon_MageTrashApp_Model_Uninstall extends Mage_Core_Model_Abstract
      */
     public function uninstallSqlCommand ($moduleName)
     {
-        Mage::getSingleton('adminhtml/session')->addSuccess('Running SQL Unininstall for Module:'.$moduleName);
+        Mage::getSingleton('adminhtml/session')->AddNotice('Running SQL Unininstall for Module:'.$moduleName);
 
         $result = false;
 

@@ -5,7 +5,7 @@ class Hackathon_MageTrashApp_Model_Resource_Setup extends Mage_Core_Model_Resour
 
     public function runUninstallSql($fileName,$resourceName) {
 
-        Mage::getSingleton('adminhtml/session')->addSuccess('Invoking uninstall file for resource'.$resourceName);
+        Mage::getSingleton('adminhtml/session')->addNotice('Invoking uninstall file for resource'.$resourceName);
 
         $connection = Mage::getSingleton('core/resource')->getConnection($resourceName);
 
@@ -17,7 +17,7 @@ class Hackathon_MageTrashApp_Model_Resource_Setup extends Mage_Core_Model_Resour
             // remove core_resource
             if ($result) {
                 Mage::getSingleton('adminhtml/session')->
-                    addSuccess('Removing core resource '.$resourceName);
+                    addNotice('Removing core resource '.$resourceName);
                 $this->deleteTableRow('core/resource', 'code', $resourceName);
             }
 
@@ -25,7 +25,7 @@ class Hackathon_MageTrashApp_Model_Resource_Setup extends Mage_Core_Model_Resour
             $result = false;
             Mage::log($e);
             Mage::getSingleton('adminhtml/session')->
-                addNotice('Running uninstall failed for reosurce '.$resourceName);
+                addWarning('Running uninstall failed for resource '.$resourceName);
         }
 
         $connection->allowDdlCache();
