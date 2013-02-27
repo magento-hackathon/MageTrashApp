@@ -5,6 +5,9 @@ class Hackathon_MageTrashApp_Helper_Data extends Mage_Core_Helper_Abstract
     const ENABLE = 1;
     const UNINSTALL = 2;
 
+    const DELETE = 0;
+    const REWIND = 1;
+
 	public function uninstallModule($moduleName)
 	{
         // deactivate the module
@@ -123,6 +126,83 @@ class Hackathon_MageTrashApp_Helper_Data extends Mage_Core_Helper_Abstract
             }
             reset($objects);
             rmdir($dir);
+        }
+    }
+
+    /**
+     * Delete Core Resource for specified module
+     * @param $moduleName
+     */
+    public function deleteCoreResource($moduleName)
+    {
+        // Refactor OUT of help!
+        // Refactor the modman stuff (and duplicate in uninstall.php into helper)
+        // Use Uninstall.php for helper as it is tidier
+
+        $resName = Mage::helper('magetrashapp')->getResourceName($moduleName);
+
+        $resource = Mage::getResourceSingleton('core/resource'); //TODO: change so you don't
+        $number = $resource->getDbVersion($resName); // TODO: need to pass in the extra variable
+
+        if (!$number) {
+            Mage::getSingleton('adminhtml/session')->AddNotice('No CoreResource version found for:'. $moduleName);
+        } else {
+            Mage::register('isSecureArea', true);
+            $resource = Mage::getResourceSingleton('wsacommon/resource');
+            $resource->deleteDbVersion($resName, $number); //TODO: here!
+            Mage::unregister('isSecureArea');
+
+            if ($resource->getDbVersion('wsalogger_setup') == 'wsalogger_setup') {
+                Mage::getSingleton('adminhtml/session')->AddNotice('CoreResource Deleted for:'. $moduleName);
+            }
+        }
+    }
+
+    /**
+     * Reset Core Resource to a give version
+     *
+     * @param $resName
+     * @param $coreResourceNumber
+     */
+    public function rewindCoreResource ($moduleName, $coreResourceNumber)
+    {
+        $resName = Mage::helper('magetrashapp')->getResourceName($moduleName);
+
+        Mage::register('isSecureArea', true);
+        $resource = Mage::getResourceSingleton('core/resource');
+        $resource->setDbVersion($resName, $coreResourceNumber);
+        Mage::unregister('isSecureArea');
+
+        if ($resource->getDbVersion('wsalogger_setup') == $coreResourceNumber) {
+            Mage::getSingleton('adminhtml/session')->AddNotice($resName .
+                ' CoreResource version rewound to: ' .$coreResourceNumber);
+        }
+        //die('tomkad'); //for testing
+    }
+
+    /**
+     * Get resource name from config.xml node
+     *
+     * @param $moduleName
+     * @return mixed
+     */
+    public function getResourceName($moduleName) {
+        $config = Mage::app()->getConfig();
+        $xmlPath = $config->getModuleDir('etc', $moduleName) . DS . 'config.xml';
+
+        if (file_exists($xmlPath)) {
+            $xmlObj = new Varien_Simplexml_Config($xmlPath);
+
+            $blah = $xmlObj->getNode('global/resources');
+            if (!$blah) {
+                Mage::getSingleton('adminhtml/session')->AddNotice('No database version found for:'. $moduleName);
+            } else {
+
+                $blah2 = $blah->asArray();
+                reset($blah2);
+                $resName = key($blah2);
+                return $resName;
+            }
         }
     }
 }

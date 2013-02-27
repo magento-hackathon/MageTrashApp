@@ -20,6 +20,15 @@
                     <show_in_website>1</show_in_website>
                     <show_in_store>1</show_in_store>
                 </manage_extns>
+                <rewind_extns>
+                    <label>Rewind Extension</label>
+                    <frontend_type>text</frontend_type>
+                    <frontend_model>magetrashapp_adminhtml/system_config_form_fieldset_modules_rewind</frontend_model>
+                    <sort_order>30</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                </rewind_extns>
             </groups>
         </magetrashapp>
     </sections>
