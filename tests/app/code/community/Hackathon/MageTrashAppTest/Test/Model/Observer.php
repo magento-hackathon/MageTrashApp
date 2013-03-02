@@ -4,9 +4,24 @@ class Hackathon_MageTrashAppTest_Test_Model_Observer extends EcomDev_PHPUnit_Tes
     /**
      * @var Hackathon_MageTrashApp_Model_Observer
      */
-    protected $model = null;
+    protected $observerModel = null;
 
     protected function setUp(){
-        $this->model = Mage::getModel('magetrashapp/observer');
+        $this->observerModel = Mage::getModel('magetrashapp/observer');
+
+        $sessionMock = $this->getModelMockBuilder('adminhtml/session')
+            ->disableOriginalConstructor() // This one removes session_start and other methods usage
+            ->setMethods(null) // Enables original methods usage, because by default it overrides all methods
+            ->getMock();
+        $this->replaceByMock('singleton', 'adminhtml/session', $sessionMock);
+    }
+
+    /**
+     * Test Observer
+     * @loadFixture config
+     */
+    public function testObserver() {
+        $result = EcomDev_Utils_Reflection::invokeRestrictedMethod(
+            $this->observerModel, 'saveConfig', array(''));
     }
 }
