@@ -42,6 +42,8 @@ class Hackathon_MageTrashApp_Model_Observer extends Mage_Core_Model_Abstract {
             if ($configFlag != 0) {
                 $version = substr($configFlag, 2);
                 $configFlag = $configFlag[0];
+            } elseif (is_null($configFlag)) {
+                continue;
             }
 
             switch ($configFlag) {
