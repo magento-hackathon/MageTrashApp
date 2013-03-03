@@ -7,7 +7,6 @@ class Hackathon_MageTrashApp_Block_Adminhtml_System_Config_Form_Fieldset_Modules
 {
     protected $_dummyElement;
     protected $_fieldRenderer;
-    protected $_values;
 
 
     public function render(Varien_Data_Form_Element_Abstract $element)
@@ -26,16 +25,20 @@ class Hackathon_MageTrashApp_Block_Adminhtml_System_Config_Form_Fieldset_Modules
         sort($modules);
 
         foreach ($modules as $moduleName) {
-            $moduleStatus = Mage::getConfig()->getModuleConfig($moduleName)->is('active', 'true');
-
-            if ($moduleName==='Mage_Adminhtml'  ||$moduleName==='Hackathon_MageTrashApp'
+            if ($moduleName==='Mage_Adminhtml'  || $moduleName==='Hackathon_MageTrashApp'
                 || stripos($moduleName,'Mage_') !== false) {
                 continue;
             }
-            $html.= $this->_getFieldHtml($element, $moduleName,$moduleStatus);
+
+            $resName = Mage::helper('magetrashapp')->getResourceName($moduleName);
+            $number = Mage::getResourceSingleton('core/resource')->getDbVersion($resName);
+            if (!$resName || $resName == $number) {
+                continue;
+            }
+
+            $html.= $this->_getFieldHtml($element, $moduleName);
         }
         $html .= $this->_getFooterHtml($element);
-        Mage::log('html');
         return $html;
     }
 
@@ -55,55 +58,47 @@ class Hackathon_MageTrashApp_Block_Adminhtml_System_Config_Form_Fieldset_Modules
         return $this->_fieldRenderer;
     }
 
-
     /**
      * @param $moduleName
      * @return array
      */
     protected function _getValues($moduleName)
     {
-        //TODO: get working for all extensions rather than just PremiumMatrixrate
-
         $nameSpaceModule = str_replace('_', '/', $moduleName);
-
         $resName = Mage::helper('magetrashapp')->getResourceName($moduleName);
+        $community = Mage::getBaseDir('code') . DS . 'community' . DS;
 
-        $magentoRoot = dirname(Mage::getRoot());
-        $uninstallscript = $magentoRoot . '/app/code/community' . DS . $nameSpaceModule . DS . 'sql' . DS . $resName . DS. '*.*';
-        $uninstallscript2 = $magentoRoot . '/app/code/community' . DS . $nameSpaceModule . DS . 'sql' . DS . $resName . DS;
+        $uninstallScript = $community . $nameSpaceModule . DS . 'sql' . DS . $resName . DS. '*.*';
 
-        $blah = array();
-        $i = 1;
-        foreach(glob($uninstallscript) as $filename){
-            $baseName = explode("-",basename($filename));
+        $valuesArray = array(
+            array('label'=>Mage::helper('adminhtml')->__('Do nothing'),              'value'=>2),
+            array('label'=>Mage::helper('adminhtml')->__('Delete core_resource'),    'value'=>0)
+        );
 
-            foreach ($baseName as $part) {
+        foreach(glob($uninstallScript) as $filename){
+            $filename = explode("-",basename($filename));
+
+            foreach ($filename as $part) {
                 if (strpos($part, ".php")) {
                     $part = str_replace('.php', '', $part);
-                    $value = $part;
+                    $number = $part;
                 }
             }
 
-            $filename = str_replace($uninstallscript2, "", $filename);
-            $blah[] = array('label'=>Mage::helper('adminhtml')->__('Rewind core_resource: ' . $value),    'value'=>'1_' . $value);
-            $i++;
+            $sqlVersionsArray[] = array('label'=>Mage::helper('adminhtml')->__(
+                'Rewind core_resource: ' . $number), 'value'=>'1_' . $number
+            );
         }
-        $blah = array_reverse($blah);
-        array_unshift($blah, array('label'=>Mage::helper('adminhtml')->__('Delete core_resource'),    'value'=>0));
-        array_unshift($blah, array('label'=>Mage::helper('adminhtml')->__('Do nothing'),    'value'=>2));
-        //$lastestSQL = array_pop($blah);
-        //array_unshift($blah, $lastestSQL);
 
-        //if (empty($this->_values)) { TODO: do you need this??
-            $this->_values = $blah;
-        Mage::log($blah);
-        //}
+        if (!empty($sqlVersionsArray)) {
+            $valuesArray = array_merge($valuesArray, array_reverse($sqlVersionsArray));
+        }
 
-        return $this->_values;
+        return $valuesArray;
     }
 
 
-    protected function _getFieldHtml($fieldset, $moduleName,$moduleStatus)
+    protected function _getFieldHtml($fieldset, $moduleName)
     {
 
         $e = $this->_getDummyElement();
