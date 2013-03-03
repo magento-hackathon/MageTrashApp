@@ -16,7 +16,7 @@ Uninstall features:
 Install script features:
 
 1. Delete core_resource to force Magento to run install/upgrade scripts.
-2. Rewind core_resource to force Magento to run a some install/upgrade scripts.
+2. Rewind core_resource to force Magento to run some install/upgrade scripts.
 
 
 ## Instructions ##
