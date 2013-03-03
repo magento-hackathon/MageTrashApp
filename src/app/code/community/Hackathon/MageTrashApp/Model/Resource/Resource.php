@@ -3,6 +3,8 @@
 class Hackathon_MageTrashApp_Model_Resource_Resource extends Mage_Core_Model_Resource_Resource
 {
     /**
+     * Delete core_resource entry
+     *
      * @param $resName
      * @param $version
      * @return int

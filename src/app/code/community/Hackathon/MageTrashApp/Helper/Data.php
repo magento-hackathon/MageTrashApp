@@ -131,6 +131,7 @@ class Hackathon_MageTrashApp_Helper_Data extends Mage_Core_Helper_Abstract
 
     /**
      * Delete Core Resource for specified module
+     *
      * @param $moduleName
      */
     public function deleteCoreResource($moduleName)
@@ -143,6 +144,7 @@ class Hackathon_MageTrashApp_Helper_Data extends Mage_Core_Helper_Abstract
 
     /**
      * Rewind Core Resource for specified module
+     *
      * @param $moduleName
      * @param $number
      */

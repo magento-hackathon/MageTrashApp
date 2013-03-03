@@ -4,6 +4,7 @@ class Hackathon_MageTrashApp_Model_CoreResource extends Mage_Core_Model_Abstract
 
     /**
      * Delete Core Resource for specified module
+     *
      * @param $moduleName
      * @param $resName
      * @param $number
@@ -26,6 +27,7 @@ class Hackathon_MageTrashApp_Model_CoreResource extends Mage_Core_Model_Abstract
 
     /**
      * Reset Core Resource to specified version
+     *
      * @param $moduleName
      * @param $resName
      * @param $number

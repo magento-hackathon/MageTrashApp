@@ -68,14 +68,15 @@ class Hackathon_MageTrashApp_Block_Adminhtml_System_Config_Form_Fieldset_Modules
         $resName = Mage::helper('magetrashapp')->getResourceName($moduleName);
         $community = Mage::getBaseDir('code') . DS . 'community' . DS;
 
-        $uninstallScript = $community . $nameSpaceModule . DS . 'sql' . DS . $resName . DS. '*.*';
+        $sqlScriptPath = $community . $nameSpaceModule . DS . 'sql' . DS . $resName . DS. '*.*';
 
         $valuesArray = array(
             array('label'=>Mage::helper('adminhtml')->__('Do nothing'),              'value'=>2),
             array('label'=>Mage::helper('adminhtml')->__('Delete core_resource'),    'value'=>0)
         );
 
-        foreach(glob($uninstallScript) as $filename){
+        // Loop through all sql files and create a value for each
+        foreach(glob($sqlScriptPath) as $filename){
             $filename = explode("-",basename($filename));
 
             foreach ($filename as $part) {
@@ -103,7 +104,7 @@ class Hackathon_MageTrashApp_Block_Adminhtml_System_Config_Form_Fieldset_Modules
 
         $e = $this->_getDummyElement();
 
-        $field = $fieldset->addField($moduleName . '1', 'select', //TODO
+        $field = $fieldset->addField($moduleName . '_Rewind', 'select',
             array(
                 'name'          => 'groups[rewind_extns][fields]['.$moduleName.'][value]',
                 'label'         => $moduleName,
