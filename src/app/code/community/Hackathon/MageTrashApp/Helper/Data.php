@@ -5,6 +5,9 @@ class Hackathon_MageTrashApp_Helper_Data extends Mage_Core_Helper_Abstract
     const ENABLE = 1;
     const UNINSTALL = 2;
 
+    const DELETE = 0;
+    const REWIND = 1;
+
 	public function uninstallModule($moduleName)
 	{
         // deactivate the module
@@ -123,6 +126,55 @@ class Hackathon_MageTrashApp_Helper_Data extends Mage_Core_Helper_Abstract
             }
             reset($objects);
             rmdir($dir);
+        }
+    }
+
+    /**
+     * Delete Core Resource for specified module
+     *
+     * @param $moduleName
+     */
+    public function deleteCoreResource($moduleName)
+    {
+        $resName = $this->getResourceName($moduleName);
+        $number = Mage::getResourceSingleton('core/resource')->getDbVersion($resName);
+
+        Mage::getModel('magetrashapp/coreresource')->deleteCoreResource($moduleName, $resName, $number);
+    }
+
+    /**
+     * Rewind Core Resource for specified module
+     *
+     * @param $moduleName
+     * @param $number
+     */
+    public function rewindCoreResource ($moduleName, $number)
+    {
+        $resName = Mage::helper('magetrashapp')->getResourceName($moduleName);
+
+        Mage::getModel('magetrashapp/coreresource')->rewindCoreResource($moduleName, $resName, $number);
+    }
+
+    /**
+     * Get resource name from config.xml node
+     *
+     * @param $moduleName
+     * @return mixed
+     */
+    public function getResourceName($moduleName) {
+        $config = Mage::app()->getConfig();
+        $xmlPath = $config->getModuleDir('etc', $moduleName) . DS . 'config.xml';
+
+        if (file_exists($xmlPath)) {
+            $xmlObj = new Varien_Simplexml_Config($xmlPath);
+
+            $resourceNode = $xmlObj->getNode('global/resources');
+            if ($resourceNode) {
+                $resourceNode = $resourceNode->asArray();
+                reset($resourceNode);
+                $resName = key($resourceNode);
+                return $resName;
+            }
         }
     }
 }

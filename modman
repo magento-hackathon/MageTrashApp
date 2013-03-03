@@ -1,2 +1,4 @@
 src/app/code/community/Hackathon/MageTrashApp app/code/community/Hackathon/MageTrashApp
-src/app/etc/modules/Hackathon_MageTrashApp.xml app/etc/modules/Hackathon_MageTrashApp.xml
+src/app/etc/modules/*.xml app/etc/modules/
+tests/app/code/community/Hackathon/MageTrashAppTest app/code/community/Hackathon/MageTrashAppTest
+tests/app/etc/modules/*.xml app/etc/modules/

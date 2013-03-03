@@ -2,7 +2,7 @@
 
 
 
-class Hackathon_MageTrashApp_Adminhtml_Block_System_Config_Form_Fieldset_Modules_MageTrashApp
+class Hackathon_MageTrashApp_Block_Adminhtml_System_Config_Form_Fieldset_Modules_MageTrashApp
     extends Mage_Adminhtml_Block_System_Config_Form_Fieldset
 {
     protected $_dummyElement;
