@@ -13,6 +13,11 @@ Uninstall features:
 2. Will attempt to uninstall using PEAR packaging commands (as in Magento Connect)
 3. If not package found then will use uninstall file specified in module config.xml (by default, it is etc/uninstall.txt)
 
+Install script features:
+
+1. Delete core_resource to force Magento to run install/upgrade scripts.
+2. Rewind core_resource to force Magento to run a some install/upgrade scripts.
+
 
 ## Instructions ##
 
@@ -20,6 +25,7 @@ Uninstall features:
 2. Refresh cache and re-sign into Magento Admin
 3. Under System->Configuration->Advanced you will see MageTrashApp
 4. For each module you have options to enable, disable, Uninstall
+5. For each module you have options to delete or rewind core_resource
 
 
 
