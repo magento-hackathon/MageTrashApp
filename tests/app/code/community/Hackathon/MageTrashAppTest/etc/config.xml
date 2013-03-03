@@ -1,0 +1,10 @@
+<config>
+    <phpunit>
+        <suite>
+            <modules>
+                <Hackathon_MageTrashAppTest />
+            </modules>
+        </suite>
+    </phpunit>
+
+</config>

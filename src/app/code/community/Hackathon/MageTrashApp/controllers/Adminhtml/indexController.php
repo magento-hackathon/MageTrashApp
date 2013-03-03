@@ -21,6 +21,6 @@ class Hackathon_MageTrashApp_Adminhtml_indexController extends Mage_Core_Control
 	
 	public function deactivateModule ()
 	{
-		
-	} 
+        
+	}
 }
