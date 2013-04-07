@@ -53,3 +53,16 @@ For example:
 
     src/app/code/community/Namespace/Mymodule 	app/code/community/Namespace/Mymodule
     src/app/etc/modules/Namespace_Mymodule.xml 	app/etc/modules/Namespace_Mymodule.xml
+
+## Further Information
+
+### Core Contributors
+
+* Tom Kadwill
+* Sylvain Rayé
+* wsakaren
+* Damian Luszczymak
+
+### Current Status of Project
+
+Complete and working.
