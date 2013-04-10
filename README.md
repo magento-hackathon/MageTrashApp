@@ -48,7 +48,7 @@ Just add the following lines to the file:
     js/mynamespace/
     skin/frontend/base/default/images/mynapespace
 
-If you have modman, you can copy the modman file into the `etc` and rename it to `uninstall.xml` folder. In this case, the second part of each line will be taken to uninstall your module.
+If you have modman, you can copy the modman file into the `etc` folder of your module (app/code/.../Mynamespace/Mymodule/etc/) and rename it to `uninstall.txt` file. In this case, the second part of each line will be taken to uninstall your module.
 For example:
 
     src/app/code/community/Namespace/Mymodule 	app/code/community/Namespace/Mymodule
