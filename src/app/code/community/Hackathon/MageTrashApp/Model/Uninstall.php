@@ -178,7 +178,7 @@ class Hackathon_MageTrashApp_Model_Uninstall extends Mage_Core_Model_Abstract
                 }
             }
             if (!feof($handle)) {
-                $helper->__('A problem occured while tryign to get access to the uninstall file.');
+                $helper->__('A problem occured while trying to get access to the uninstall file.');
             }
             fclose($handle);
             
