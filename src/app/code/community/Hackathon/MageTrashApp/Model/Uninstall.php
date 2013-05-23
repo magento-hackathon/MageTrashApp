@@ -137,40 +137,40 @@ class Hackathon_MageTrashApp_Model_Uninstall extends Mage_Core_Model_Abstract
     protected function processFileBasedUninstall($moduleName)
     {
         $magentoRoot = dirname(Mage::getRoot());
-        
+
         $config = Mage::app()->getConfig();
         $configModule = $config->getModuleConfig($moduleName);
-        
+
         /* @var $configFile Mage_Core_Model_Config_Base */
         $configFile = Mage::getModel('core/config_base');
-        
+
         /* @var $helper Hackathon_MageTrashApp_Helper_Data */
         $helper = Mage::helper('magetrashapp');
-        
+
 //         if ($configModule->is('active', true)) {
 //         	Mage::throwException( $helper->__('The module %s must be disabled before to uninstall.', $moduleName));
 //         	return;
 //         }
-        
+
         $etc = $config->getModuleDir('etc', $moduleName) . DS . 'config.xml';
         $configFile->loadFile($etc);
-        
+
         $element = $configFile->getNode('uninstall');
-        
+
         if (!empty($element) && !$element->filename) {
             $filename = $element->filename;
         } else {
             $filename = 'uninstall.txt';
         }
-        
+
         $uninstallFile = $config->getModuleDir('etc', $moduleName) . DS . $filename;
-        
+
         if (file_exists($uninstallFile)) {
             $handle = fopen($uninstallFile, 'r');
             while ($line = fgets($handle)) {
                 $line = preg_replace('/\s+/', '%%%', $line);
                 $lines = explode('%%%', $line);
-                
+
                 if (count($lines) > 2) { // modman file format, we take the second argument because it should be the path of the target installation
                     $pathsToDelete[] = $magentoRoot . DS . trim($lines[1], '/');
                 } else {
@@ -181,9 +181,9 @@ class Hackathon_MageTrashApp_Model_Uninstall extends Mage_Core_Model_Abstract
                 $helper->__('A problem occured while trying to get access to the uninstall file.');
             }
             fclose($handle);
-            
+
             foreach ($pathsToDelete as $dest) {
-                if(file_exists($dest) && is_file($dest)) {
+                if(file_exists($dest) && (is_file($dest) || is_link($dest))) {
                     unlink($dest);
                 } else if (file_exists($dest)) {
                     $helper->rrmdir($dest);
