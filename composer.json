@@ -1,0 +1,24 @@
+{
+    "name":"hackathon/hackathon_magetrashapp",
+    "type":"magento-module",
+    "license":"OSL-3.0",
+    "homepage":"https://github.com/magento-hackathon/MageTrashApp",
+    "description":"",
+    "authors":[
+        {
+            "name":"Sylvain Rayé"
+        },
+        {
+            "name":"Tom Kadwill"
+        },
+        {
+            "name":"wsakaren"
+        },
+        {
+            "name":"Damian Luszczymak"
+        }
+    ],
+    "require":{
+        "magento-hackathon/magento-composer-installer":"*"
+    }
+}
