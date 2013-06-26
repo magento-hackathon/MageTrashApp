@@ -8,7 +8,7 @@
                         <children>
                             <config>
                                 <children>
-                                    <magetrashapp translate="title" module="trashapp">
+                                    <magetrashapp translate="title" module="magetrashapp">
                                         <title>Mage Trash App</title>
                                     </magetrashapp>
                                 </children>
