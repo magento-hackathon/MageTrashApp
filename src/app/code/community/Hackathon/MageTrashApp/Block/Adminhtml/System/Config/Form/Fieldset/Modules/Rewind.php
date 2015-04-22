@@ -31,6 +31,7 @@ class Hackathon_MageTrashApp_Block_Adminhtml_System_Config_Form_Fieldset_Modules
             }
 
             $resName = Mage::helper('magetrashapp')->getResourceName($moduleName);
+            if($resName===null) continue;
             $number = Mage::getResourceSingleton('core/resource')->getDbVersion($resName);
             if (!$resName || $resName == $number) {
                 continue;
