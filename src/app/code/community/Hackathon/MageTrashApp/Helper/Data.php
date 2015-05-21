@@ -171,6 +171,7 @@ class Hackathon_MageTrashApp_Helper_Data extends Mage_Core_Helper_Abstract
             $resourceNode = $xmlObj->getNode('global/resources');
             if ($resourceNode) {
                 $resourceNode = $resourceNode->asArray();
+                if(!is_array($resourceNode)) return;
                 reset($resourceNode);
                 $resName = key($resourceNode);
                 return $resName;
