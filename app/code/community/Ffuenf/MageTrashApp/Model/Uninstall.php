@@ -24,7 +24,7 @@ class Ffuenf_MageTrashApp_Model_Uninstall extends Mage_Core_Model_Abstract
      *
      * @param $moduleName
      */
-    public function uninstallSqlCommand ($moduleName)
+    public function uninstallSqlCommand($moduleName)
     {
         Mage::getSingleton('adminhtml/session')->AddNotice('Running SQL Unininstall for Module:' . $moduleName);
         $result = false;
@@ -43,10 +43,10 @@ class Ffuenf_MageTrashApp_Model_Uninstall extends Mage_Core_Model_Abstract
         if (empty($resourceName)) {
             return $result;
         }
-        $fileName = $this->_getUninstallSQLFile($moduleName,$resourceName);
+        $fileName = $this->_getUninstallSQLFile($moduleName, $resourceName);
         if (!is_null($fileName) ) {
             $resource = new Ffuenf_MageTrashApp_Model_Resource_Setup($resourceName);
-            $result = $resource->runUninstallSql($fileName,$resourceName);
+            $result = $resource->runUninstallSql($fileName, $resourceName);
         } else {
             Mage::getSingleton('adminhtml/session')->addNotice('Unable to find uninstall script for:' . $moduleName);
         }
@@ -60,7 +60,7 @@ class Ffuenf_MageTrashApp_Model_Uninstall extends Mage_Core_Model_Abstract
      *
      * @return bool
      */
-    protected function _getUninstallSQLFile($moduleName,$resourceName)
+    protected function _getUninstallSQLFile($moduleName, $resourceName)
     {
         $filesDir = Mage::getModuleDir('sql', $moduleName) . DS . $resourceName;
         if (!is_dir($filesDir) || !is_readable($filesDir)) {
@@ -103,8 +103,6 @@ class Ffuenf_MageTrashApp_Model_Uninstall extends Mage_Core_Model_Abstract
         $params[] = $moduleName;
         Mage_Connect_Command_Install::registerCommands(); // needed for init
         $pear = new Mage_Connect_Command_Install();
-        /* @var $config Ffuenf_MageTrashApp_Model_PearWrapper */
-        $config = Mage::getModel('magetrashapp/pearWrapper');
         $result = $pear->doUninstall($command, array(), $params);
     }
 
@@ -147,7 +145,7 @@ class Ffuenf_MageTrashApp_Model_Uninstall extends Mage_Core_Model_Abstract
             }
             fclose($handle);
             foreach ($pathsToDelete as $dest) {
-                if(file_exists($dest) && (is_file($dest) || is_link($dest))) {
+                if (file_exists($dest) && (is_file($dest) || is_link($dest))) {
                     unlink($dest);
                 } else if (file_exists($dest)) {
                     $helper->rrmdir($dest);

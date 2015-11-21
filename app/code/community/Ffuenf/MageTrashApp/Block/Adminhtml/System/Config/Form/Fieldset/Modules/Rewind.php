@@ -34,17 +34,18 @@ class Ffuenf_MageTrashApp_Block_Adminhtml_System_Config_Form_Fieldset_Modules_Re
         $modules = $dispatchResult->toArray();
         sort($modules);
         foreach ($modules as $moduleName) {
-            if ($moduleName === 'Mage_Adminhtml' || $moduleName === 'Ffuenf_MageTrashApp'
-                || stripos($moduleName,'Mage_') !== false) {
+            if ($moduleName === 'Mage_Adminhtml' || $moduleName === 'Ffuenf_MageTrashApp' || stripos($moduleName, 'Mage_') !== false) {
                 continue;
             }
             $resName = Mage::helper('magetrashapp')->getResourceName($moduleName);
-            if($resName===null) continue;
+            if ($resName === null) {
+                continue;
+            }
             $number = Mage::getResourceSingleton('core/resource')->getDbVersion($resName);
             if (!$resName || $resName == $number) {
                 continue;
             }
-            $html.= $this->_getFieldHtml($element, $moduleName);
+            $html .= $this->_getFieldHtml($element, $moduleName);
         }
         $html .= $this->_getFooterHtml($element);
         return $html;
@@ -81,7 +82,7 @@ class Ffuenf_MageTrashApp_Block_Adminhtml_System_Config_Form_Fieldset_Modules_Re
             array('label' => Mage::helper('adminhtml')->__('Delete core_resource'), 'value' => 0)
         );
         // Loop through all sql files and create a value for each
-        foreach(glob($sqlScriptPath) as $filename){
+        foreach (glob($sqlScriptPath) as $filename) {
             $filename = explode("-", basename($filename));
             foreach ($filename as $part) {
                 if (strpos($part, ".php")) {

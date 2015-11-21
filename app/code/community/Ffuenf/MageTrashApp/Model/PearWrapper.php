@@ -106,11 +106,11 @@ class Ffuenf_MageTrashApp_Model_PearWrapper extends Mage_Core_Model_Abstract
             $ftp=$this->_config->__get('remote_config');
             if (!empty($ftp)) {
                 $packager = new Mage_Connect_Packager();
-                list($cache, $config, $ftpObj) = $packager->getRemoteConf($ftp);
-                $this->_config=$config;
-                $this->_sconfig=$cache;
+                list($cache, , $ftpObj) = $packager->getRemoteConf($ftp);
+                $this->_config = $config;
+                $this->_sconfig = $cache;
             }
-            $this->_config->magento_root = dirname(dirname(__FILE__)).DS.'..';
+            $this->_config->magento_root = dirname(dirname(__FILE__)) . DS . '..';
         }
         return $this->_config;
     }
@@ -125,8 +125,7 @@ class Ffuenf_MageTrashApp_Model_PearWrapper extends Mage_Core_Model_Abstract
     {
         if (!$this->_sconfig || $reload) {
             $this->_sconfig = new Mage_Connect_Singleconfig(
-                Mage::getModuleDir('etc','Ffuenf_MageTrashApp') . DIRECTORY_SEPARATOR
-                    . self::DEFAULT_SCONFIG_FILENAME
+                Mage::getModuleDir('etc', 'Ffuenf_MageTrashApp') . DIRECTORY_SEPARATOR . self::DEFAULT_SCONFIG_FILENAME
             );
         }
         Mage_Connect_Command::setSconfig($this->_sconfig);
@@ -170,7 +169,7 @@ class Ffuenf_MageTrashApp_Model_PearWrapper extends Mage_Core_Model_Abstract
     /**
      * Clean registry
      *
-     * @return Maged_Connect
+     * @return Ffuenf_MageTrashApp_Model_PearWrapper
      */
     public function cleanSconfig()
     {
@@ -182,7 +181,7 @@ class Ffuenf_MageTrashApp_Model_PearWrapper extends Mage_Core_Model_Abstract
      * Delete directory recursively
      *
      * @param string $path
-     * @return Maged_Connect
+     * @return Ffuenf_MageTrashApp_Model_PearWrapper
      */
     public function delTree($path)
     {
@@ -190,7 +189,7 @@ class Ffuenf_MageTrashApp_Model_PearWrapper extends Mage_Core_Model_Abstract
             $entries = @scandir($path);
             foreach ($entries as $entry) {
                 if ($entry != '.' && $entry != '..') {
-                    $this->delTree($path.DS.$entry);
+                    $this->delTree($path . DS . $entry);
                 }
             }
             @rmdir($path);
@@ -206,9 +205,9 @@ class Ffuenf_MageTrashApp_Model_PearWrapper extends Mage_Core_Model_Abstract
      * @param string $command
      * @param array $options
      * @param array $params
-     * @return boolean|Mage_Connect_Error
+     * @return boolean | Mage_Connect_Error
      */
-    public function run($command, $options=array(), $params=array())
+    public function run($command, $options = array(), $params = array())
     {
         @set_time_limit(0);
         @ini_set('memory_limit', '256M');
@@ -233,18 +232,14 @@ class Ffuenf_MageTrashApp_Model_PearWrapper extends Mage_Core_Model_Abstract
             $options = array_merge($options, array('ftp' => $ftp));
         }
         $cmd->run($command, $options, $params);
-        if ($cmd->ui()->hasErrors()) {
-            return false;
-        } else {
-            return true;
-        }
+        return !$cmd->ui()->hasErrors();
     }
 
     /**
      * Set remote Config by URI
      *
      * @param $uri
-     * @return Maged_Connect
+     * @return Ffuenf_MageTrashApp_Model_PearWrapper
      */
     public function setRemoteConfig($uri)
     {

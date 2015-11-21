@@ -58,7 +58,7 @@ class Ffuenf_MageTrashApp_Model_Adminhtml_Config_Data extends Mage_Adminhtml_Mod
                 if ($fieldsConfig->hasChildren()) {
                     foreach ($fieldsConfig->children() as $field => $node) {
                         foreach ($cloneModel->getPrefixes() as $prefix) {
-                            $mappedFields[$prefix['field'].(string)$field] = (string)$field;
+                            $mappedFields[$prefix['field'] . (string)$field] = (string)$field;
                         }
                     }
                 }
@@ -77,7 +77,7 @@ class Ffuenf_MageTrashApp_Model_Adminhtml_Config_Data extends Mage_Adminhtml_Mod
                         . $mappedFields[$field]);
                 }
                 if (!$fieldConfig) {
-                    $node = $sections->xpath($section .'//' . $group . '[@type="group"]/fields/' . $field);
+                    $node = $sections->xpath($section . '//' . $group . '[@type="group"]/fields/' . $field);
                     if ($node) {
                         $fieldConfig = $node[0];
                     }
@@ -96,7 +96,7 @@ class Ffuenf_MageTrashApp_Model_Adminhtml_Config_Data extends Mage_Adminhtml_Mod
                 /** @var $dataObject Mage_Core_Model_Config_Data */
                 $dataObject = Mage::getModel($backendClass);
                 if (!$dataObject instanceof Mage_Core_Model_Config_Data) {
-                    Mage::throwException('Invalid config field backend model: '.$backendClass);
+                    Mage::throwException('Invalid config field backend model: ' . $backendClass);
                 }
                 $dataObject
                     ->setField($field)

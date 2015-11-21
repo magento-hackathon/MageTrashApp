@@ -21,9 +21,6 @@ class Ffuenf_MageTrashApp_Adminhtml_indexController extends Mage_Core_Controller
     public function uninstallAction()
     {
         $moduleName = $this->getRequest()->getParam('module_name');
-        try {
-            Mage::helper()->uninstallModule($moduleName);
-        } catch (Exception $e) {
-        }
+        Mage::helper()->uninstallModule($moduleName);
     }
 }

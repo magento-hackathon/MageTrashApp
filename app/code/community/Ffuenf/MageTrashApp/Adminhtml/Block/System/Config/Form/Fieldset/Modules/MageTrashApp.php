@@ -35,11 +35,10 @@ class Ffuenf_MageTrashApp_Adminhtml_Block_System_Config_Form_Fieldset_Modules_Ma
         sort($modules);
         foreach ($modules as $moduleName) {
             $moduleStatus = Mage::getConfig()->getModuleConfig($moduleName)->is('active', 'true');
-            if ($moduleName === 'Mage_Adminhtml' || $moduleName === 'Ffuenf_MageTrashApp'
-                || stripos($moduleName,'Mage_') !== false) {
+            if ($moduleName === 'Mage_Adminhtml' || $moduleName === 'Ffuenf_MageTrashApp' || stripos($moduleName, 'Mage_') !== false) {
                 continue;
             }
-            $html.= $this->_getFieldHtml($element, $moduleName,$moduleStatus);
+            $html .= $this->_getFieldHtml($element, $moduleName,$moduleStatus);
         }
         $html .= $this->_getFooterHtml($element);
         return $html;
@@ -73,12 +72,12 @@ class Ffuenf_MageTrashApp_Adminhtml_Block_System_Config_Form_Fieldset_Modules_Ma
         return $this->_values;
     }
 
-    protected function _getFieldHtml($fieldset, $moduleName,$moduleStatus)
+    protected function _getFieldHtml($fieldset, $moduleName, $moduleStatus)
     {
         $e = $this->_getDummyElement();
         $field = $fieldset->addField($moduleName, 'select',
             array(
-                'name'                  => 'groups[manage_extns][fields]['.$moduleName.'][value]',
+                'name'                  => 'groups[manage_extns][fields][' . $moduleName . '][value]',
                 'label'                 => $moduleName,
                 'value'                 => (int)$moduleStatus,
                 'values'                => $this->_getValues(),

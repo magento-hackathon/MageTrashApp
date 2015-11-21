@@ -47,7 +47,7 @@ class Ffuenf_MageTrashApp_Model_CoreResource extends Mage_Core_Model_Abstract
      * @param $resName
      * @param $number
      */
-    public function rewindCoreResource ($moduleName, $resName, $number)
+    public function rewindCoreResource($moduleName, $resName, $number)
     {
         Mage::register('isSecureArea', true);
         $resource = Mage::getResourceSingleton('core/resource');

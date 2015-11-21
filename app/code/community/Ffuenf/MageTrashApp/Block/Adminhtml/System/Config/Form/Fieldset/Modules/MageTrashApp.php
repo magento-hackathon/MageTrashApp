@@ -40,7 +40,7 @@ class Ffuenf_MageTrashApp_Block_Adminhtml_System_Config_Form_Fieldset_Modules_Ma
                 || stripos($moduleName,'Mage_') !== false) {
                 continue;
             }
-            $html.= $this->_getFieldHtml($element, $moduleName,$moduleStatus);
+            $html.= $this->_getFieldHtml($element, $moduleName, $moduleStatus);
         }
         $html .= $this->_getFooterHtml($element);
         return $html;
@@ -86,7 +86,8 @@ class Ffuenf_MageTrashApp_Block_Adminhtml_System_Config_Form_Fieldset_Modules_Ma
                 'inherit'               => true,
                 'can_use_default_value' => $this->getForm()->canUseDefaultValue($e),
                 'can_use_website_value' => $this->getForm()->canUseWebsiteValue($e),
-            ))->setRenderer($this->_getFieldRenderer());
+            )
+        )->setRenderer($this->_getFieldRenderer());
         return $field->toHtml();
     }
 }

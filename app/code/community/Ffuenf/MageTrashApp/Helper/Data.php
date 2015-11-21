@@ -74,7 +74,7 @@ class Ffuenf_MageTrashApp_Helper_Data extends Ffuenf_Common_Helper_Core
      * @param string $moduleName
      * @return boolean | array
      */
-    protected function checkDependencies ($moduleName)
+    protected function checkDependencies($moduleName)
     {
         $moduleDepends = array();
         foreach (Mage::getConfig()->getNode('modules')->children() as $parentName => $module) {
@@ -83,7 +83,7 @@ class Ffuenf_MageTrashApp_Helper_Data extends Ffuenf_Common_Helper_Core
             }
             if ($module->depends) {
                 foreach ($module->depends->children() as $name => $depend) {
-                    if ($name === $moduleName && (bool) Mage::getConfig()->getModuleConfig($moduleName)->is('active', 'true')) {
+                    if ($name === $moduleName && (bool)Mage::getConfig()->getModuleConfig($moduleName)->is('active', 'true')) {
                         $moduleDepends[] = $parentName;
                     }
                 }
@@ -98,7 +98,7 @@ class Ffuenf_MageTrashApp_Helper_Data extends Ffuenf_Common_Helper_Core
      * @param  string $name
      * @return string
      */
-    public function activateModule($name,$activateFlag = true)
+    public function activateModule($name, $activateFlag = true)
     {
         $isDeactivationPossible = true;
         if (count($this->checkDependencies($name)) > 0) {
@@ -143,7 +143,11 @@ class Ffuenf_MageTrashApp_Helper_Data extends Ffuenf_Common_Helper_Core
             $objects = scandir($dir);
             foreach ($objects as $object) {
                 if ($object != "." && $object != "..") {
-                    if (filetype($dir . "/" . $object) == "dir") $this->rrmdir($dir . "/" . $object); else unlink($dir . "/" . $object);
+                    if (filetype($dir . "/" . $object) == "dir") {
+                        $this->rrmdir($dir . "/" . $object);
+                    } else {
+                        unlink($dir . "/" . $object);
+                    }
                 }
             }
             reset($objects);
@@ -169,7 +173,7 @@ class Ffuenf_MageTrashApp_Helper_Data extends Ffuenf_Common_Helper_Core
      * @param $moduleName
      * @param $number
      */
-    public function rewindCoreResource ($moduleName, $number)
+    public function rewindCoreResource($moduleName, $number)
     {
         $resName = Mage::helper('magetrashapp')->getResourceName($moduleName);
         Mage::getModel('magetrashapp/coreresource')->rewindCoreResource($moduleName, $resName, $number);
@@ -189,7 +193,9 @@ class Ffuenf_MageTrashApp_Helper_Data extends Ffuenf_Common_Helper_Core
             $resourceNode = $xmlObj->getNode('global/resources');
             if ($resourceNode) {
                 $resourceNode = $resourceNode->asArray();
-                if(!is_array($resourceNode)) return;
+                if (!is_array($resourceNode)){
+                    return;
+                }
                 reset($resourceNode);
                 $resName = key($resourceNode);
                 return $resName;
