@@ -1,6 +1,5 @@
 language: php
 sudo: false
-rvm: 2.2.3
 php:
 - 5.3
 - 5.4
@@ -41,8 +40,8 @@ env:
 script:
 - curl -sSL https://raw.githubusercontent.com/ffuenf/MageTestStand/master/setup.sh
   | bash
-before_install:
-- rvm install 2.2.3
+before_deploy:
+- gem install mime-types -v 2.6.2 # workaround for https://github.com/travis-ci/travis-ci/issues/5145
 deploy:
   provider: releases
   file:
