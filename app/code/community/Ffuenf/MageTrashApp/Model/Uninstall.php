@@ -58,6 +58,8 @@ class Ffuenf_MageTrashApp_Model_Uninstall extends Mage_Core_Model_Abstract
      *
      * Lifted and modified from Mage_Core_Resource_Setup::_getAvailableDbFiles()
      *
+     * @param string $moduleName
+     * @param string $resourceName
      * @return null|string
      */
     protected function _getUninstallSQLFile($moduleName, $resourceName)

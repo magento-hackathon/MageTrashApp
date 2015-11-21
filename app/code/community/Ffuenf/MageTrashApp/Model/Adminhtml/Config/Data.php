@@ -50,31 +50,29 @@ class Ffuenf_MageTrashApp_Model_Adminhtml_Config_Data extends Mage_Adminhtml_Mod
             if ($clonedFields = !empty($groupConfig->clone_fields)) {
                 if ($groupConfig->clone_model) {
                     $cloneModel = Mage::getModel((string)$groupConfig->clone_model);
-                } else {
-                    Mage::throwException('Config form fieldset clone model required to be able to clone fields');
-                }
-                $mappedFields = array();
-                $fieldsConfig = $sections->descend($section . '/groups/' . $group . '/fields');
-                if ($fieldsConfig->hasChildren()) {
-                    foreach ($fieldsConfig->children() as $field => $node) {
-                        foreach ($cloneModel->getPrefixes() as $prefix) {
-                            $mappedFields[$prefix['field'] . (string)$field] = (string)$field;
+                    $mappedFields = array();
+                    $fieldsConfig = $sections->descend($section . '/groups/' . $group . '/fields');
+                    if ($fieldsConfig->hasChildren()) {
+                        foreach ($fieldsConfig->children() as $field => $node) {
+                            foreach ($cloneModel->getPrefixes() as $prefix) {
+                                $mappedFields[$prefix['field'] . (string)$field] = (string)$field;
+                            }
                         }
                     }
+                } else {
+                    Mage::throwException('Config form fieldset clone model required to be able to clone fields');
                 }
             }
             // set value for group field entry by fieldname
             // use extra memory
             $fieldsetData = array();
             foreach ($groupData['fields'] as $field => $fieldData) {
-                $fieldsetData[$field] = (is_array($fieldData) && isset($fieldData['value']))
-                    ? $fieldData['value'] : null;
+                $fieldsetData[$field] = (is_array($fieldData) && isset($fieldData['value'])) ? $fieldData['value'] : null;
             }
             foreach ($groupData['fields'] as $field => $fieldData) {
                 $fieldConfig = $sections->descend($section . '/groups/' . $group . '/fields/' . $field);
                 if (!$fieldConfig && $clonedFields && isset($mappedFields[$field])) {
-                    $fieldConfig = $sections->descend($section . '/groups/' . $group . '/fields/'
-                        . $mappedFields[$field]);
+                    $fieldConfig = $sections->descend($section . '/groups/' . $group . '/fields/' . $mappedFields[$field]);
                 }
                 if (!$fieldConfig) {
                     $node = $sections->xpath($section . '//' . $group . '[@type="group"]/fields/' . $field);
@@ -107,8 +105,7 @@ class Ffuenf_MageTrashApp_Model_Adminhtml_Config_Data extends Mage_Adminhtml_Mod
                     ->setScope($scope)
                     ->setScopeId($scopeId)
                     ->setFieldConfig($fieldConfig)
-                    ->setFieldsetData($fieldsetData)
-                ;
+                    ->setFieldsetData($fieldsetData);
                 if (!isset($fieldData['value'])) {
                     $fieldData['value'] = null;
                 }

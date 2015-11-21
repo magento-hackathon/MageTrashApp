@@ -90,8 +90,7 @@ class Ffuenf_MageTrashApp_Block_Adminhtml_System_Config_Form_Fieldset_Modules_Ma
     protected function _getFieldHtml($fieldset, $moduleName, $moduleStatus)
     {
         $e = $this->_getDummyElement();
-        $field = $fieldset->addField($moduleName, 'select',
-            array(
+        $field = $fieldset->addField($moduleName, 'select', array(
                 'name'                  => 'groups[manage_extns][fields][' . $moduleName . '][value]',
                 'label'                 => $moduleName,
                 'value'                 => (int)$moduleStatus,
