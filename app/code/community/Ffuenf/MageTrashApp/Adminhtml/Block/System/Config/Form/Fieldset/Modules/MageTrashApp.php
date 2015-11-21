@@ -41,7 +41,7 @@ class Ffuenf_MageTrashApp_Adminhtml_Block_System_Config_Form_Fieldset_Modules_Ma
             if ($moduleName === 'Mage_Adminhtml' || $moduleName === 'Ffuenf_MageTrashApp' || stripos($moduleName, 'Mage_') !== false) {
                 continue;
             }
-            $html .= $this->_getFieldHtml($element, $moduleName,$moduleStatus);
+            $html .= $this->_getFieldHtml($element, $moduleName, $moduleStatus);
         }
         $html .= $this->_getFooterHtml($element);
         return $html;

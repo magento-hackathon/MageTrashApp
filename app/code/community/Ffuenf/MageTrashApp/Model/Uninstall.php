@@ -22,7 +22,7 @@ class Ffuenf_MageTrashApp_Model_Uninstall extends Mage_Core_Model_Abstract
      * Run the uninstall sql script to remove everything from module in database
      * This uninstall script must be provided by the extension provider
      *
-     * @param $moduleName
+     * @param string $moduleName
      */
     public function uninstallSqlCommand($moduleName)
     {
@@ -58,7 +58,7 @@ class Ffuenf_MageTrashApp_Model_Uninstall extends Mage_Core_Model_Abstract
      *
      * Lifted and modified from Mage_Core_Resource_Setup::_getAvailableDbFiles()
      *
-     * @return bool
+     * @return null|string
      */
     protected function _getUninstallSQLFile($moduleName, $resourceName)
     {
@@ -85,7 +85,7 @@ class Ffuenf_MageTrashApp_Model_Uninstall extends Mage_Core_Model_Abstract
      * 1. Pear
      * 2. Using uninstall.sql and file as specified in config.xml
      * Format of the file must be modman???
-     * @param $moduleName
+     * @param string $moduleName
      */
     public function processUninstallPackage($moduleName)
     {
@@ -95,7 +95,7 @@ class Ffuenf_MageTrashApp_Model_Uninstall extends Mage_Core_Model_Abstract
     /**
      * Attempts to uninstall Pear
      *
-     * @param $moduleName
+     * @param string $moduleName
      */
     protected function processPearUninstall($moduleName) {
         $command = 'uninstall';
@@ -109,7 +109,7 @@ class Ffuenf_MageTrashApp_Model_Uninstall extends Mage_Core_Model_Abstract
     /**
      * Attempts to uninstall Pear
      *
-     * @param $moduleName
+     * @param string $moduleName
      */
     protected function processFileBasedUninstall($moduleName)
     {

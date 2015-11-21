@@ -98,8 +98,11 @@ class Ffuenf_MageTrashApp_Block_Adminhtml_System_Config_Form_Fieldset_Modules_Re
                 }
             }
             if ($number != '') {
-                $sqlVersionsArray[] = array('label'=>Mage::helper('adminhtml')->__(
-                    'Rewind core_resource: ' . $number), 'value' => '1_' . $number
+                $sqlVersionsArray[] = array(
+                    'label'=>Mage::helper('adminhtml')->__(
+                        'Rewind core_resource: ' . $number
+                    ),
+                    'value' => '1_' . $number
                 );
             }
         }
