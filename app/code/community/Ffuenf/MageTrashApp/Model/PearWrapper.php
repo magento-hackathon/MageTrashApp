@@ -103,10 +103,10 @@ class Ffuenf_MageTrashApp_Model_PearWrapper extends Mage_Core_Model_Abstract
     {
         if (!$this->_config) {
             $this->_config = new Mage_Connect_Config();
-            $ftp=$this->_config->__get('remote_config');
+            $ftp = $this->_config->__get('remote_config');
             if (!empty($ftp)) {
                 $packager = new Mage_Connect_Packager();
-                list($cache, , $ftpObj) = $packager->getRemoteConf($ftp);
+                list($cache, $config, $ftpObj) = $packager->getRemoteConf($ftp);
                 $this->_config = $config;
                 $this->_sconfig = $cache;
             }
