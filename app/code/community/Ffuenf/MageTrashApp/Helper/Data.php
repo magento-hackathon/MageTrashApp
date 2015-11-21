@@ -42,6 +42,9 @@ class Ffuenf_MageTrashApp_Helper_Data extends Ffuenf_Common_Helper_Core
         return $this->getStoreFlag(self::CONFIG_EXTENSION_ACTIVE, '_bExtensionActive');
     }
 
+    /*
+     * @param string $moduleName
+     */
     public function uninstallModule($moduleName)
     {
         // deactivate the module
@@ -105,7 +108,6 @@ class Ffuenf_MageTrashApp_Helper_Data extends Ffuenf_Common_Helper_Core
             $isDeactivationPossible = false;
         }
         if ($isDeactivationPossible) {
-            $status = '';
             $xmlPath = Mage::getBaseDir() . DS . 'app' . DS . 'etc' . DS . 'modules' . DS . $name . '.xml';
             if (file_exists($xmlPath)) {
                 $xmlObj = new Varien_Simplexml_Config($xmlPath);
@@ -137,6 +139,9 @@ class Ffuenf_MageTrashApp_Helper_Data extends Ffuenf_Common_Helper_Core
         return $status;
     }
 
+    /**
+     * @param string $dir
+     */
     public function rrmdir($dir)
     {
         if (is_dir($dir)) {
@@ -193,7 +198,7 @@ class Ffuenf_MageTrashApp_Helper_Data extends Ffuenf_Common_Helper_Core
             $resourceNode = $xmlObj->getNode('global/resources');
             if ($resourceNode) {
                 $resourceNode = $resourceNode->asArray();
-                if (!is_array($resourceNode)){
+                if (!is_array($resourceNode)) {
                     return;
                 }
                 reset($resourceNode);

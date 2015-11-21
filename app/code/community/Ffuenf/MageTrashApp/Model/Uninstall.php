@@ -44,7 +44,7 @@ class Ffuenf_MageTrashApp_Model_Uninstall extends Mage_Core_Model_Abstract
             return $result;
         }
         $fileName = $this->_getUninstallSQLFile($moduleName, $resourceName);
-        if (!is_null($fileName) ) {
+        if (!is_null($fileName)) {
             $resource = new Ffuenf_MageTrashApp_Model_Resource_Setup($resourceName);
             $result = $resource->runUninstallSql($fileName, $resourceName);
         } else {

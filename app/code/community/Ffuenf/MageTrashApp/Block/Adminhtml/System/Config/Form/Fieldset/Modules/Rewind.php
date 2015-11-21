@@ -22,6 +22,9 @@ class Ffuenf_MageTrashApp_Block_Adminhtml_System_Config_Form_Fieldset_Modules_Re
     protected $_dummyElement;
     protected $_fieldRenderer;
 
+    /**
+     * @param Varien_Data_Form_Element_Abstract $element
+     */
     public function render(Varien_Data_Form_Element_Abstract $element)
     {
         $html = $this->_getHeaderHtml($element);
@@ -51,6 +54,9 @@ class Ffuenf_MageTrashApp_Block_Adminhtml_System_Config_Form_Fieldset_Modules_Re
         return $html;
     }
 
+    /**
+     * @return Varien_Object
+     */
     protected function _getDummyElement()
     {
         if (empty($this->_dummyElement)) {
@@ -84,15 +90,18 @@ class Ffuenf_MageTrashApp_Block_Adminhtml_System_Config_Form_Fieldset_Modules_Re
         // Loop through all sql files and create a value for each
         foreach (glob($sqlScriptPath) as $filename) {
             $filename = explode("-", basename($filename));
+            $number = '';
             foreach ($filename as $part) {
                 if (strpos($part, ".php")) {
                     $part = str_replace('.php', '', $part);
                     $number = $part;
                 }
             }
-            $sqlVersionsArray[] = array('label'=>Mage::helper('adminhtml')->__(
-                'Rewind core_resource: ' . $number), 'value' => '1_' . $number
-            );
+            if ($number != '') {
+                $sqlVersionsArray[] = array('label'=>Mage::helper('adminhtml')->__(
+                    'Rewind core_resource: ' . $number), 'value' => '1_' . $number
+                );
+            }
         }
         if (!empty($sqlVersionsArray)) {
             $valuesArray = array_merge($valuesArray, array_reverse($sqlVersionsArray));
@@ -100,6 +109,10 @@ class Ffuenf_MageTrashApp_Block_Adminhtml_System_Config_Form_Fieldset_Modules_Re
         return $valuesArray;
     }
 
+    /**
+     * @param $fieldset
+     * @param $moduleName
+     */
     protected function _getFieldHtml($fieldset, $moduleName)
     {
         $e = $this->_getDummyElement();

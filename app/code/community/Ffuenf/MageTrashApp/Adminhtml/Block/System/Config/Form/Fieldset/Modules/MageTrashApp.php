@@ -22,6 +22,9 @@ class Ffuenf_MageTrashApp_Adminhtml_Block_System_Config_Form_Fieldset_Modules_Ma
     protected $_fieldRenderer;
     protected $_values;
 
+    /**
+     * @param Varien_Data_Form_Element_Abstract $element
+     */
     public function render(Varien_Data_Form_Element_Abstract $element)
     {
         $html = $this->_getHeaderHtml($element);
@@ -44,6 +47,9 @@ class Ffuenf_MageTrashApp_Adminhtml_Block_System_Config_Form_Fieldset_Modules_Ma
         return $html;
     }
 
+    /**
+     * @return Varien_Object
+     */
     protected function _getDummyElement()
     {
         if (empty($this->_dummyElement)) {
@@ -60,6 +66,9 @@ class Ffuenf_MageTrashApp_Adminhtml_Block_System_Config_Form_Fieldset_Modules_Ma
         return $this->_fieldRenderer;
     }
 
+    /**
+     * @return array
+     */
     protected function _getValues()
     {
         if (empty($this->_values)) {
@@ -72,6 +81,11 @@ class Ffuenf_MageTrashApp_Adminhtml_Block_System_Config_Form_Fieldset_Modules_Ma
         return $this->_values;
     }
 
+    /**
+     * @param $fieldset
+     * @param $moduleName
+     * @param $moduleStatus
+     */
     protected function _getFieldHtml($fieldset, $moduleName, $moduleStatus)
     {
         $e = $this->_getDummyElement();

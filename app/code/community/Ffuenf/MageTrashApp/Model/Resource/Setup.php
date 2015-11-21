@@ -18,6 +18,10 @@
 
 class Ffuenf_MageTrashApp_Model_Resource_Setup extends Mage_Core_Model_Resource_Setup
 {
+    /**
+     * @param string $fileName
+     * @param string $resourceName
+     */
     public function runUninstallSql($fileName, $resourceName) {
         Mage::getSingleton('adminhtml/session')->addNotice('Invoking uninstall file for resource' . $resourceName);
         $connection = Mage::getSingleton('core/resource')->getConnection($resourceName);
@@ -27,15 +31,13 @@ class Ffuenf_MageTrashApp_Model_Resource_Setup extends Mage_Core_Model_Resource_
             $result = include $fileName;
             // remove core_resource
             if ($result) {
-                Mage::getSingleton('adminhtml/session')->
-                    addNotice('Removing core resource ' . $resourceName);
+                Mage::getSingleton('adminhtml/session')->addNotice('Removing core resource ' . $resourceName);
                 $this->deleteTableRow('core/resource', 'code', $resourceName);
             }
         } catch (Exception $e) {
             $result = false;
             Mage::log($e);
-            Mage::getSingleton('adminhtml/session')->
-                addWarning('Running uninstall failed for resource ' . $resourceName);
+            Mage::getSingleton('adminhtml/session')->addWarning('Running uninstall failed for resource ' . $resourceName);
         }
         $connection->allowDdlCache();
         return $result;
