@@ -1,0 +1,60 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Ffuenf_MageTrashApp extension
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the MIT License
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/mit-license.php
+ *
+ * @category   Ffuenf
+ *
+ * @author     Achim Rosenhagen <a.rosenhagen@ffuenf.de>
+ * @copyright  Copyright (c) 2015 ffuenf (http://www.ffuenf.de)
+ * @license    http://opensource.org/licenses/mit-license.php MIT License
+*/
+-->
+<config>
+    <sections>
+        <ffuenf_magetrashapp translate="label" module="ffuenf_magetrashapp">
+            <label>MageTrashApp</label>
+            <tab>advanced</tab>
+            <frontend_type>text</frontend_type>
+            <sort_order>999</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>0</show_in_website>
+            <show_in_store>0</show_in_store>
+            <groups>
+                <teaser translate="label" module="ffuenf_magetrashapp">
+                    <frontend_model>Ffuenf_MageTrashApp_Block_Adminhtml_System_Config_Fieldset_Teaser</frontend_model>
+                    <sort_order>10</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>0</show_in_website>
+                    <show_in_store>0</show_in_store>
+                    <expanded>1</expanded>
+                </teaser>
+                <manage_extns>
+                    <label>Extensions Installed</label>
+                    <frontend_type>text</frontend_type>
+                    <frontend_model>Ffuenf_MageTrashApp_Block_Adminhtml_System_Config_Form_Fieldset_Modules_MageTrashApp</frontend_model>
+                    <sort_order>20</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>0</show_in_website>
+                    <show_in_store>0</show_in_store>
+                </manage_extns>
+                <rewind_extns>
+                    <label>Rewind Extension</label>
+                    <frontend_type>text</frontend_type>
+                    <frontend_model>Ffuenf_MageTrashApp_Block_Adminhtml_System_Config_Form_Fieldset_Modules_Rewind</frontend_model>
+                    <sort_order>30</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>0</show_in_website>
+                    <show_in_store>0</show_in_store>
+                </rewind_extns>
+            </groups>
+        </ffuenf_magetrashapp>
+    </sections>
+</config>

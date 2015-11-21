@@ -1,0 +1,93 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Ffuenf_MageTrashApp extension
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the MIT License
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/mit-license.php
+ *
+ * @category   Ffuenf
+ *
+ * @author     Achim Rosenhagen <a.rosenhagen@ffuenf.de>
+ * @copyright  Copyright (c) 2015 ffuenf (http://www.ffuenf.de)
+ * @license    http://opensource.org/licenses/mit-license.php MIT License
+*/
+-->
+<config>
+    <modules>
+        <Ffuenf_MageTrashApp>
+            <version>1.0.1</version>
+        </Ffuenf_MageTrashApp>
+    </modules>
+    <global>
+        <blocks>
+            <ffuenf_magetrashapp>
+                <class>Ffuenf_MageTrashApp_Block</class>
+            </ffuenf_magetrashapp>
+        </blocks>
+        <helpers>
+            <ffuenf_magetrashapp>
+                <class>Ffuenf_MageTrashApp_Helper</class>
+            </ffuenf_magetrashapp>
+        </helpers>
+        <models>
+            <ffuenf_magetrashapp>
+                <class>Ffuenf_MageTrashApp_Model</class>
+                <resourceModel>magetrashapp_resource</resourceModel>
+            </ffuenf_magetrashapp>
+            <ffuenf_magetrashapp_resource>
+                <class>Ffuenf_MageTrashApp_Model_Resource</class>
+            </ffuenf_magetrashapp_resource>
+            <adminhtml>
+                <rewrite>
+                    <config_data>Ffuenf_MageTrashApp_Model_Adminhtml_Config_Data</config_data>
+                </rewrite>
+            </adminhtml>
+        </models>
+        <resources>
+            <ffuenf_magetrashapp_resource>
+                <setup>
+                    <module>Ffuenf_MageTrashApp</module>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </ffuenf_magetrashapp_resource>
+        </resources>
+        <events>
+            <admin_system_config_changed_section_magetrashapp>
+                <observers>
+                    <ffuenf_magetrashapp>
+                        <class>Ffuenf_MageTrashApp_Model_Observer</class>
+                        <method>saveConfig</method>
+                    </ffuenf_magetrashapp>
+                </observers>
+            </admin_system_config_changed_section_magetrashapp>
+        </events>
+    </global>
+    <admin>
+        <routers>
+            <adminhtml>
+                <args>
+                    <modules>
+                        <ffuenf_magetrashapp after="Mage_Adminhtml">Ffuenf_MageTrashApp</ffuenf_magetrashapp>
+                    </modules>
+                </args>
+            </adminhtml>
+        </routers>
+    </admin>
+    <uninstall>
+        <filename>uninstall.txt</filename>
+    </uninstall>
+    <phpunit>
+        <suite>
+            <modules>
+                <Ffuenf_MageTrashApp/>
+            </modules>
+        </suite>
+    </phpunit>
+</config>

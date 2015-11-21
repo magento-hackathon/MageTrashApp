@@ -1,24 +1,36 @@
 {
-    "name":"magento-hackathon/hackathon_magetrashapp",
-    "type":"magento-module",
-    "license":"OSL-3.0",
-    "homepage":"https://github.com/magento-hackathon/MageTrashApp",
-    "description":"Clean uninstallation or deactivation of Magento modules",
-    "authors":[
-        {
-            "name":"Sylvain Rayé"
-        },
-        {
-            "name":"Tom Kadwill"
-        },
-        {
-            "name":"wsakaren"
-        },
-        {
-            "name":"Damian Luszczymak"
-        }
-    ],
-    "require":{
-        "magento-hackathon/magento-composer-installer":"*"
+  "name": "Ffuenf/Ffuenf_MageTrashApp",
+  "license": "MIT",
+  "description": "This is a extension for Magento Community Edition that adds a clean uninstallation routine for extensions.",
+  "authors": [
+    {
+      "name":"Sylvain Rayé"
+    },
+    {
+      "name":"Tom Kadwill"
+    },
+    {
+      "name":"wsakaren"
+    },
+    {
+      "name":"Damian Luszczymak"
+    },
+    {
+      "name": "Achim Rosenhagen",
+      "email": "a.rosenhagen@ffuenf.de"
     }
+  ],
+  "type": "magento-module",
+  "require": {
+    "Ffuenf/Ffuenf_Common": "*"
+  },
+  "require-dev": {
+    "aoepeople/composer-installers": "*"
+  },
+  "repositories": [
+    {
+      "type": "vcs",
+      "url": "https://github.com/ffuenf/Ffuenf_Common"
+    }
+  ]
 }
