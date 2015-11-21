@@ -7,13 +7,11 @@
             </modules>
         </suite>
     </phpunit>
-    
     <modules>
         <Hackathon_MageTrashApp>
             <version>1.0.1</version>
         </Hackathon_MageTrashApp>
     </modules>
-
     <global>
         <blocks>
             <magetrashapp>
@@ -28,7 +26,6 @@
                 <class>Hackathon_MageTrashApp_Helper</class>
             </magetrashapp>
         </helpers>
-
         <models>
             <magetrashapp>
                 <class>Hackathon_MageTrashApp_Model</class>
@@ -63,21 +60,18 @@
                 </observers>
             </admin_system_config_changed_section_magetrashapp>
         </events>
-
     </global>
-
     <admin>
         <routers>
-            <subscription>
-                <use>admin</use>
+            <adminhtml>
                 <args>
-                    <module>Hackathon_MageTrashApp</module>
-                    <frontName>magetrashapp</frontName>
+                    <modules>
+                        <magetrashapp after="Mage_Adminhtml">Hackathon_MageTrashApp</magetrashapp>
+                    </modules>
                 </args>
-            </subscription>
+            </adminhtml>
         </routers>
     </admin>
-
     <uninstall>
         <filename>uninstall.txt</filename>
         <!-- <path>.modman/Hackathon_MageTrashApp</path> -->
