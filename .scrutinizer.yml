@@ -137,7 +137,8 @@ checks:
         newline_at_end_of_file: true
         fix_line_ending: true
         avoid_perl_style_comments: true
-
+        line_length:
+            max_length: '180'
 coding_style:
     php:
         spaces:
