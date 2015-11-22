@@ -30,7 +30,7 @@ class Data extends PHPUnit_Framework_TestCase
 
     public function tearDown()
     {
-        $this->helper = null;
+        $this->_helper = null;
     }
 
     /**
