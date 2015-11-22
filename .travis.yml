@@ -1,0 +1,57 @@
+language: php
+sudo: false
+php:
+- 5.3
+- 5.4
+- 5.5
+- 5.6
+- 7.0
+matrix:
+  allow_failures:
+  - env: MAGENTO_VERSION=magento-ce-1.9.1.1
+  - env: MAGENTO_VERSION=magento-ce-1.9.1.0
+  - php: 5.3
+  - php: 5.4
+    env: MAGENTO_VERSION=magento-ce-1.9.2.2
+  - php: 5.4
+    env: MAGENTO_VERSION=magento-ce-1.9.2.1
+  - php: 5.4
+    env: MAGENTO_VERSION=magento-ce-1.9.2.0
+  - php: 5.6
+    env: MAGENTO_VERSION=magento-mirror-1.8.1.0
+  - php: 7.0
+    env: MAGENTO_VERSION=magento-mirror-1.8.1.0
+  fast_finish: true
+env:
+  global:
+  - APPNAME=Ffuenf_MageTrashApp
+  - secure: FnTBMCFVGIFv06s752N3MO/3zioQPxGQdtkM7H29m+GHvBdMlV/H1hAPlxA2rW9j6Zu4fPGy90UFxLrIXxfz28yCbtg2J2MxWbrE9YHKQKj0q3/N8bOToKoTiW6G5AuSmr0tWoWFwC/PMgy7rbx73tgpVCwPM45FWPx/qGYVpdwZLrfrk5ywy/BLBAkC+NQwSHMpbbQM1ponYBtazvQmw2PDIkFmKUjlp8+SkY5chqAuXz6B8AlalsKPNi8Iyl/t1mxK/NXAQtUKUPUPmIVp3o7E3xg5EUBcJuFDlt9+eJBx66GAj15oQsBY0EtX3BwY5af4AolkID5fINEPthonjgpdcdgkXp1nMzw9W6gqzpl2D6NZcm/PXt2CmXDhPNXoD8bS4s9zADwwwtT1nXhQYDaWxORlIkQTe4oWXGgPlpVooVbQp82Bh32aMnkYK18/Fjzn63rMNPvl3PC0J6HWcq1TgR5xicS0tzWFJ43nVXD2N96REYtJ+CoAnklZA2IyTZxgUOA++fjt2CHfOmsoH76tYo9ktAlCAV028NcI8Vt73MWRIX1tfD4IpNvTKPhGItNCcQaUzCb8LBrJm0/qwQyr4YXNBeYHqAIZxQgzFRWTRmkVAhzq/PxjXju8xBTfa75ECVbqe8DLypunwqFJb4Ruy0FxbCv5sxzmwifRdRM=
+  - secure: iLkuLENsd9Lje+Gb/UGx7Cjv8pb7PGTuT92TBQL1c1t69lVrmMdsZ36/f8QbZTMeYIBYN0WL1slr/iRklPxClsco5IGOvc0O7U1c545uZIzBmucME6AsLomGZmtvlXjhjy4MExYCUL6nrJ3oj9Eo3Ii9WSIQsgd9cxo0P3UiOh4fJCYsxrDpmkRsC/9v8gbsXQgE7lqJoMIGxlCONmsrE/pUdySPKeTVMPsgVWNL0mtbvNS9CcA0bMYjvpwMqcU4cCdf2EHhy32VgNCv1bmJdB7igcZ1nVWZccCY4GAFzCzjnvc6ZSxTzayi9nVfLqTLy3GEtcgzOi/ty6vOPbtYairobDUWnigGBMwfz9LARtv3woO495UqQA9MPAZ5UXBUq3STImy0OSXesiawR4ZfwlCdSxEcsEWkn8a9ui4AoTg98cjJDYRGA7A/KZA1hBfqpUcoSvv7uLmEzuOaPa5OGHc2vl2bHlnssMmMXwt85P+i9cKZAghJ18p4K5Gx4XMYNrhqGGC15DGKgMQhczdV3/hd2AbD9Fm/vTqZ9Mh00C+9xqh89fb0uxU5d8KLnuE7XXwOhsYFD8vzeNrVnsQfss0xt4ZXUFdn4Frt1VtwNOMg7EzGWOQqdDmrp2t4zESz7aSdx5yTvpo1JJlp3Igb5AJqM4KzxWp2ZFAmX/TtgDg=
+  - secure: hoTcDWPLDj1Q6AxKTWpO7k1mzS5X/ItilBVXmHMHq22yS2kZKTrt5qJyyxccByGZw3Ukawy4HLwRJdDfYymOZhysiZAnV2ZDa1ldUA8tz6oixnmqbkrYLh2oCqH/CLn10gkniEBxo1WP0V9bT9S7LE/MUq/GH7XuTtpjQrsGoQVPnpnsHiTKoWnYqw9tP1YethlbdYx55F03EF1JsBEObqRSKq8hEQT7t/CKwguuKNZgmG8uICD9M+yz85vU8V6p/0ogW7pQUHSr7M9jWyjcKeXIAOVhGkjEoomFOgTG8Au6ol/COObIHBv5d0Di1hlVJnNqjCbhdZUs2Hi6IXtC84GpNO7tRyCxNjXqDO4enBjgql9NlbmfVza33VKXd2Jt2nCS4hgaQZFj55Vfd7sgbpdfjUsIr1Zm68MYItyIE6P3NvAuxjpg/Jx9QAs7zN+K8X15Mh+9Vg4MIyLlPwpyq4PQG4b0n0IeHlVhnthlDWVl04pET6ml72vG2CHxfM3G8vJMjxkgoU8nhtdIR7dkdpD1j8H77s8ej/TIjLeEVaXZGmPhEoaNs/dvHpPG07oNSuQThyX1txQE+ujabc59gzi4pjeqfhuvGwLb6nFVnGcA83H70kTiRR0hYtPTV5qRp8VyhJdbZjy5nu9RVqCYHpysa4KmZn9iohK40csmF78=
+  matrix:
+  - MAGENTO_VERSION=magento-ce-1.9.2.2
+  - MAGENTO_VERSION=magento-ce-1.9.2.1
+  - MAGENTO_VERSION=magento-ce-1.9.2.0
+  - MAGENTO_VERSION=magento-ce-1.9.1.1
+  - MAGENTO_VERSION=magento-ce-1.9.1.0
+  - MAGENTO_VERSION=magento-mirror-1.8.1.0
+  - MAGENTO_VERSION=magento-mirror-1.7.0.2
+  - MAGENTO_VERSION=magento-mirror-1.6.2.0
+script:
+- curl -sSL https://raw.githubusercontent.com/ffuenf/MageTestStand/master/setup.sh
+  | bash
+before_deploy:
+- gem install mime-types -v 2.6.2 # workaround for https://github.com/travis-ci/travis-ci/issues/5145
+deploy:
+  provider: releases
+  file:
+  - "${APPNAME}-${TRAVIS_TAG}.zip"
+  - "${APPNAME}-${TRAVIS_TAG}.tar.gz"
+  skip_cleanup: true
+  on:
+    tags: true
+  api_key:
+    secure: FqhLXpWjRVWmVoPUV6eNiaohOOpAmLQaDXXNbCxCkl4stU9P4Nkp7bv3ULV4eONVNhtFXVZiM/55XwTKe11EgtPYdqYh+cA8rYpoLQMGpMsEXkNBd+LhITuqXgCHu3GhnS94VSNi2hFUmKAUCp0NqCWNn3KmdVe+S1vdkhs/9Ek62pvtD7vB3eTxb0OmabG6hy5QAefdAfRNDHhLyRtdfuTG+R0/L4/80aYs1uBA2uC4EvfyzLuMeardud6p3zFKnzsIX1I2fQLVyML9jjE+7p2CLUMzCXFA98WP8WelxAb2zSm4Eia+lwpOW4052r9Q6c0k3MxEIJNZw7nKbjja6kw+nd22BM7vUKEGfW7dSy+tOH4slZKxYemWuI3lENF8h2YeTyCNIKCIjeBCTzwLSnpnw1PCOPo7KWfszTsVfdrwu8n1wV7rBZlG+36EM8qTbHWjHOxENq4T46Cy0Se+v2Io3jexk614ZqcOvoXI6xK8pqZ01wolflcqYbsFJXOT3fWSW2KwjrVPrizi6RTbAefNM9hdAkWAxg8mACpcvUpX5GFtqmRXsNyXUvLoRudr6TTcgPpUnpRmcx1bGp8sWgPnrlM1oepiBB45XwkaIjruUWQQoBE/5ZIM/2+9282I9UBAHET7Srsaz76JfX/hq9onK3BCAPVUKac58n79AX0=
+notifications:
+  slack:
+    secure: XZBwfIBmsiMmdFI4d60/L7EbLw6UULxmPFYNp7ESndlLVGBurH9nN6RP50XKxZXbn/nui2WLnSNLT72z1NczxG2CoNyLlBqv62ZDGtPjf8mtOqU7SIO2ygje1BPLmodNxPGjsmlnZn+YoLLMT+mYUCAoeKOMvB4EOULQG1OLBoCpUDCv+f9p7ZwjRLjPgZ9pi5NkBv1BpuCq7E/lOemdZviFg+2cUFVG4wPoO0jM8XELB9xB1dmfzoRdzRs5Hkn5NiDXco+WNYP3RYgVCyuabqhP55HSPMGVwvafsLH4lV9GjeRtacWEBrXCl6of4mrmaozvlZuZxOUOYN07WWob59qcoqSqnRVIMyFysk8BoIIDJ6m3uQQepXdD/DKlItY2OhCQFm63/M3M9HaLQdb7X31R4XaUGZ4IrNJmGiZVlnq7gZyX0Fv1JQujtTrNPUc2XsnxxvdVm+ZIeYgtU2690Ec2GCl/nPacqeYXDXYtxp89rENmUnwPP7W9FVh+ucaB9WeXs0bzmsCuatWfSSE1jGoSYlKXmvmsn8RuCDgaPDAPcI3IDfLs1fVBmFrTu/vjtq1kXaUZ0/aORONlSWIhpCbdCZUnNVWs5WZAtxDYjLs+7lhw1+CEjcy/Qb5uIGAYIdraAvjG9ucyuF/J6a544ZVQidfV9JNcA9qypI6vAFg=

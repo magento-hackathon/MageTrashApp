@@ -1,2 +1,6 @@
-.DS_Store
-.idea
+.vagrant
+build
+travis_key_chunk.sh
+Berksfile
+Berksfile.lock
+Vagrantfile
