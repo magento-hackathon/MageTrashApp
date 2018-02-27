@@ -73,6 +73,7 @@ class Hackathon_MageTrashApp_Model_Adminhtml_Config_Data extends Mage_Adminhtml_
             }
 
             foreach ($groupData['fields'] as $field => $fieldData) {
+				$field = ltrim($field, '/');
                 $fieldConfig = $sections->descend($section . '/groups/' . $group . '/fields/' . $field);
                 if (!$fieldConfig && $clonedFields && isset($mappedFields[$field])) {
                     $fieldConfig = $sections->descend($section . '/groups/' . $group . '/fields/'
