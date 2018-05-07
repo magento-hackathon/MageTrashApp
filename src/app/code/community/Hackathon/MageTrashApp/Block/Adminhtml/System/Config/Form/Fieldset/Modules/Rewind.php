@@ -79,7 +79,8 @@ class Hackathon_MageTrashApp_Block_Adminhtml_System_Config_Form_Fieldset_Modules
         // Loop through all sql files and create a value for each
         foreach(glob($sqlScriptPath) as $filename){
             $filename = explode("-",basename($filename));
-
+            
+            $number = "";
             foreach ($filename as $part) {
                 if (strpos($part, ".php")) {
                     $part = str_replace('.php', '', $part);
